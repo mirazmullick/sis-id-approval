@@ -34,6 +34,35 @@ it on a USB stick. Also downloadable from the live site at
 
 Direct link to one person's card: append their ID to the file path, e.g. `…ID-Approval.html#SYL059`.
 
+## Start to end, once the Sheet is connected
+
+1. **You share one link** in WhatsApp or email:
+   `https://mirazmullick.github.io/sis-id-approval/`
+   To send someone straight to their own card, add their ID: `…/#SYL059`.
+2. **They open it** on a phone or PC. No login, no install, no app.
+3. **They type their name** in *Reviewed by* at the top, once.
+4. **They find their card** — search by name or ID, tap it, and the printed card
+   appears exactly as it will be issued.
+5. **They answer.** Tick *The information on this ID card is correct*, or write what is
+   wrong in *Remarks*. Saved on their device the moment they touch it.
+6. **They tap Send to HR.** The row reaches your Sheet in about a second.
+7. **Anyone missing** taps *+ New ID card*, fills in name, ID, designation, blood group and
+   office, uploads a passport photo of any size, and sends. It lands in the *New requests*
+   tab with the photo saved to a Drive folder.
+8. **You watch it fill up** — either in the Sheet, or with the *Team responses* button in the
+   dashboard, which shows all 50 plus new requests, with counts and a CSV download.
+9. **When enough have answered**, filter to *Corrections*, hit *Copy correction list for
+   designer*, and send that to whoever edits the artwork.
+10. **After the artwork is fixed**, re-run `node render_cards.js && node build.js`, commit and
+    push. The same link now shows the corrected cards.
+
+Two things to be aware of before you send the link out:
+
+- **There is no login.** Anyone with the link can approve any card, and the *Reviewed by* name
+  is simply typed in. For an internal 50-person office that is usually fine, but it is an
+  honour-system record, not a signature.
+- **The link is public.** Anyone who has it sees all 50 photos, IDs and blood groups.
+
 ## Collecting responses in a Google Sheet (recommended)
 
 Once this is connected, each person gets a **Send to HR** button, and a **Team responses**
