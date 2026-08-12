@@ -278,7 +278,7 @@
     </div>
   </div>
 
-  <button class="btn" id="newBtn">+ New ID card</button>
+  <button class="btn primary" id="newBtn">+ New ID card</button>
   <button class="btn" id="liveBtn" hidden>Team responses</button>
 
   <div class="menu" id="menu">
@@ -997,15 +997,6 @@ window.__SYNC__ = {"url":"https://script.google.com/macros/s/AKfycbzOIWl0ZqeF9af
     // actions
     var actions = document.createElement('div');
     actions.className = 'actions';
-    var next = document.createElement('button');
-    next.className = 'btn primary'; next.type = 'button';
-    next.textContent = 'Save and open next →';
-    next.onclick = function () {
-      commit(e.id, { remarks: document.getElementById('remarks').value });
-      var i = EMP.map(function (x) { return x.id; }).indexOf(e.id);
-      open(EMP[(i + 1) % EMP.length].id);
-      flash();
-    };
     var prev = document.createElement('button');
     prev.className = 'btn'; prev.type = 'button'; prev.textContent = '← Previous';
     prev.onclick = function () {
@@ -1021,7 +1012,7 @@ window.__SYNC__ = {"url":"https://script.google.com/macros/s/AKfycbzOIWl0ZqeF9af
     };
     var saved = document.createElement('span');
     saved.className = 'saved'; saved.id = 'savedMsg'; saved.textContent = '✓ Saved on this device';
-    actions.appendChild(prev); actions.appendChild(next); actions.appendChild(clear); actions.appendChild(saved);
+    actions.appendChild(prev); actions.appendChild(clear); actions.appendChild(saved);
 
     // when a Sheet is connected, the response can be sent to HR instead of exported by hand
     if (SYNC) {
