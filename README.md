@@ -49,8 +49,9 @@ Direct link to one person's card: append their ID to the file path, e.g. `…ID-
 7. **Anyone missing** taps *+ New ID card*, fills in name, ID, designation, blood group and
    office, uploads a passport photo of any size, and sends. It lands in the *New requests*
    tab with the photo saved to a Drive folder.
-8. **You watch it fill up** — either in the Sheet, or with the *Team responses* button in the
-   dashboard, which shows all 50 plus new requests, with counts and a CSV download.
+8. **You watch it fill up** with the *Team responses* button in the dashboard: all 50 plus new
+   requests, with counts and a **Download Excel** button. The Google Sheet is only the mailbox
+   that catches submissions — the workbook you actually work in is the `.xlsx` you download.
 9. **When enough have answered**, filter to *Corrections*, hit *Copy correction list for
    designer*, and send that to whoever edits the artwork.
 10. **After the artwork is fixed**, re-run `node render_cards.js && node build.js`, commit and
@@ -63,7 +64,23 @@ Two things to be aware of before you send the link out:
   honour-system record, not a signature.
 - **The link is public.** Anyone who has it sees all 50 photos, IDs and blood groups.
 
-## Collecting responses in a Google Sheet (recommended)
+## The working file is Excel
+
+Everything comes out as a real `.xlsx` workbook — **Export & tools → Download responses
+(Excel)**, or **Download Excel** inside *Team responses*. Three tabs:
+
+| Tab | What's in it |
+| --- | --- |
+| Summary | Generated-on, who prepared it, and the counts |
+| Responses | All 50, with status, approved yes/no, remarks, who answered, when |
+| New requests | Manually added cards, with the photo link |
+
+Written by `lib/xlsx.js` — no library, no add-in, no Google. Header row frozen, columns sized.
+
+## Collecting responses in a Google Sheet
+
+The Sheet is **only the mailbox**: it catches what people send so nobody has to email files
+around. You never have to open it — press *Download responses (Excel)* and work there.
 
 Once this is connected, each person gets a **Send to HR** button, and a **Team responses**
 button shows everyone's answers in one live table — no files to merge.
