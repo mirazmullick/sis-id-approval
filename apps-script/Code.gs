@@ -14,6 +14,14 @@
 
 var TOKEN = 'fLottKWUKbS_pTM4YGmTErHe';
 
+// Id of the "Suma ID card approvals" spreadsheet. Set this when the script is a
+// standalone project; leave it blank if the script lives inside the sheet itself.
+var SHEET_ID = '1VpFwNy1zwIux0YDTrjKg3SNsJHrnblrLXbKHp2HpU1A';
+
+function book() {
+  return SHEET_ID ? SpreadsheetApp.openById(SHEET_ID) : SpreadsheetApp.getActiveSpreadsheet();
+}
+
 var HEAD = ['Updated', 'Employee ID', 'Name', 'Designation', 'Status', 'Approved', 'Remarks', 'Submitted by'];
 var NEW_HEAD = ['Updated', 'Ref', 'Employee ID', 'Name', 'Designation', 'Blood group', 'Office', 'Notes', 'Submitted by', 'Photo'];
 var PHOTO_FOLDER = 'Suma ID card photos';
@@ -115,7 +123,7 @@ function photoFolder() {
 }
 
 function tab(name, head) {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = book();
   var sh = ss.getSheetByName(name);
   if (!sh) {
     sh = ss.insertSheet(name);
