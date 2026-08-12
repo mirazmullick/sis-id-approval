@@ -1,0 +1,752 @@
+[
+  {
+    "empId": "SYL059",
+    "name": "MD ROFIQUL ISLAM",
+    "designation": "Asst. Manager (Holidays)",
+    "blood": "O +ve",
+    "row": 0,
+    "col": 0,
+    "crop": {
+      "x": 86,
+      "y": 121,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/SYL059.png"
+  },
+  {
+    "empId": "SYL001",
+    "name": "JULHAS UDDIN POLASH",
+    "designation": "General Manager",
+    "blood": "O +ve",
+    "row": 0,
+    "col": 1,
+    "crop": {
+      "x": 324,
+      "y": 121,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/SYL001.png"
+  },
+  {
+    "empId": "SYL060",
+    "name": "MD MIZANUR RAHMAN",
+    "designation": "Executive (Hajj & Umrah)",
+    "blood": "AB +ve",
+    "row": 0,
+    "col": 2,
+    "crop": {
+      "x": 562,
+      "y": 121,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/SYL060.png"
+  },
+  {
+    "empId": "DAC529",
+    "name": "MD SOPON",
+    "designation": "Executive (Digital Marketing)",
+    "blood": "A +ve",
+    "row": 0,
+    "col": 3,
+    "crop": {
+      "x": 801,
+      "y": 121,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/DAC529.png"
+  },
+  {
+    "empId": "SYL024",
+    "name": "Md. Abdullah Al Mamnun Chowdhury",
+    "designation": "Executive (Business Development & IT)",
+    "blood": "B -ve",
+    "row": 0,
+    "col": 4,
+    "crop": {
+      "x": 1039,
+      "y": 121,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/SYL024.png"
+  },
+  {
+    "empId": "SYL020",
+    "name": "FOYSAL ISLAM",
+    "designation": "Sr. Executive (Holidays)",
+    "blood": "B +ve",
+    "row": 0,
+    "col": 5,
+    "crop": {
+      "x": 1277,
+      "y": 121,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/SYL020.png"
+  },
+  {
+    "empId": "DAC513",
+    "name": "MD MOMIN UDDIN",
+    "designation": "Manager (Accounts)",
+    "blood": "O +ve",
+    "row": 0,
+    "col": 6,
+    "crop": {
+      "x": 1515,
+      "y": 121,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/DAC513.png"
+  },
+  {
+    "empId": "SYL011",
+    "name": "KABIR AHMED CHOWDHURY",
+    "designation": "Manager (Operation & HR)",
+    "blood": "A +ve",
+    "row": 0,
+    "col": 7,
+    "crop": {
+      "x": 1754,
+      "y": 121,
+      "w": 222,
+      "h": 345
+    },
+    "file": "cards/SYL011.png"
+  },
+  {
+    "empId": "SYL053",
+    "name": "MONTASIR MAMUN",
+    "designation": "Executive (Business Development)",
+    "blood": "B +ve",
+    "row": 1,
+    "col": 0,
+    "crop": {
+      "x": 86,
+      "y": 516,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/SYL053.png"
+  },
+  {
+    "empId": "DAC519",
+    "name": "MD RAFAYTUL ISLAM",
+    "designation": "Sr. Travel Consultant Reservation & Ticketing",
+    "blood": "A +ve",
+    "row": 1,
+    "col": 1,
+    "crop": {
+      "x": 324,
+      "y": 516,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/DAC519.png"
+  },
+  {
+    "empId": "DAC527",
+    "name": "MD MEZANUR RAHAMAN",
+    "designation": "Asst. Manager (Holidays)",
+    "blood": "B +ve",
+    "row": 1,
+    "col": 2,
+    "crop": {
+      "x": 562,
+      "y": 516,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/DAC527.png"
+  },
+  {
+    "empId": "DAC537",
+    "name": "ISHTIAQ AHAMED SIDDIQUEE",
+    "designation": "Sr. Travel Consultant Reservation & Ticketing",
+    "blood": "B +ve",
+    "row": 1,
+    "col": 3,
+    "crop": {
+      "x": 801,
+      "y": 516,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/DAC537.png"
+  },
+  {
+    "empId": "DAC508",
+    "name": "SYED MOINUL HOSSAIN",
+    "designation": "Manager - Operations",
+    "blood": "B +ve",
+    "row": 1,
+    "col": 4,
+    "crop": {
+      "x": 1039,
+      "y": 516,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/DAC508.png"
+  },
+  {
+    "empId": "DAC505",
+    "name": "MD KAMAL HOSSAIN",
+    "designation": "Executive - Visa Processing",
+    "blood": "O +ve",
+    "row": 1,
+    "col": 5,
+    "crop": {
+      "x": 1277,
+      "y": 516,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/DAC505.png"
+  },
+  {
+    "empId": "DAC526",
+    "name": "MD SHAHADAT HOSSAIN",
+    "designation": "Asst. Manager - Reservation",
+    "blood": "O +ve",
+    "row": 1,
+    "col": 6,
+    "crop": {
+      "x": 1515,
+      "y": 516,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/DAC526.png"
+  },
+  {
+    "empId": "DAC540",
+    "name": "KAZI MD. MUSTAFIZUR RAHMAN",
+    "designation": "Manager-Accounts & Finance",
+    "blood": "O +ve",
+    "row": 1,
+    "col": 7,
+    "crop": {
+      "x": 1754,
+      "y": 516,
+      "w": 222,
+      "h": 345
+    },
+    "file": "cards/DAC540.png"
+  },
+  {
+    "empId": "DAC515",
+    "name": "MD KAMRUL ISLAM",
+    "designation": "Executive - Accounts",
+    "blood": "B +ve",
+    "row": 2,
+    "col": 0,
+    "crop": {
+      "x": 86,
+      "y": 911,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/DAC515.png"
+  },
+  {
+    "empId": "DAC517",
+    "name": "MD MUSTAFIZUR RAHMAN",
+    "designation": "Executive - Accounts",
+    "blood": "O +ve",
+    "row": 2,
+    "col": 1,
+    "crop": {
+      "x": 324,
+      "y": 911,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/DAC517.png"
+  },
+  {
+    "empId": "DAC518",
+    "name": "MD SYEDUL ISLAM",
+    "designation": "Executive-Visa Processing",
+    "blood": "O +ve",
+    "row": 2,
+    "col": 2,
+    "crop": {
+      "x": 562,
+      "y": 911,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/DAC518.png"
+  },
+  {
+    "empId": "DAC535",
+    "name": "RAYHAN AHMED",
+    "designation": "Executive Reservation & Ticketing",
+    "blood": "O +ve",
+    "row": 2,
+    "col": 3,
+    "crop": {
+      "x": 801,
+      "y": 911,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/DAC535.png"
+  },
+  {
+    "empId": "SYL009",
+    "name": "MOHAMMAD ABU TAYAB",
+    "designation": "Sr. Executive Reservation & Ticketing",
+    "blood": "B +ve",
+    "row": 2,
+    "col": 4,
+    "crop": {
+      "x": 1039,
+      "y": 911,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/SYL009.png"
+  },
+  {
+    "empId": "SYL006",
+    "name": "MD MUNAYEM KOBIR",
+    "designation": "Asst. Manager Reservation & Ticketing",
+    "blood": "O +ve",
+    "row": 2,
+    "col": 5,
+    "crop": {
+      "x": 1277,
+      "y": 911,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/SYL006.png"
+  },
+  {
+    "empId": "SYL045",
+    "name": "MOHAMMAD SOHEL",
+    "designation": "Executive - Accounts",
+    "blood": "B +ve",
+    "row": 2,
+    "col": 6,
+    "crop": {
+      "x": 1515,
+      "y": 911,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/SYL045.png"
+  },
+  {
+    "empId": "DAC543",
+    "name": "MD MERAZUR RAHMAN",
+    "designation": "Executive Reservation & Ticketing",
+    "blood": "B +ve",
+    "row": 2,
+    "col": 7,
+    "crop": {
+      "x": 1754,
+      "y": 911,
+      "w": 222,
+      "h": 345
+    },
+    "file": "cards/DAC543.png"
+  },
+  {
+    "empId": "DAC512",
+    "name": "S M SOHEL UDDIN",
+    "designation": "Chief Operating Officer",
+    "blood": "O +ve",
+    "row": 3,
+    "col": 0,
+    "crop": {
+      "x": 86,
+      "y": 1306,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/DAC512.png"
+  },
+  {
+    "empId": "DAC502",
+    "name": "BASIT AHMED RAJ",
+    "designation": "Manager Reservation & Ticketing",
+    "blood": "O -ve",
+    "row": 3,
+    "col": 1,
+    "crop": {
+      "x": 324,
+      "y": 1306,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/DAC502.png"
+  },
+  {
+    "empId": "SYL042",
+    "name": "MOHAMMAD IQBAL HUSSAN",
+    "designation": "Asst. Manager Business Development",
+    "blood": "O +ve",
+    "row": 3,
+    "col": 2,
+    "crop": {
+      "x": 562,
+      "y": 1306,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/SYL042.png"
+  },
+  {
+    "empId": "SYL019",
+    "name": "EBADUR RAHMAN",
+    "designation": "Executive - Hajj & Umrah",
+    "blood": "B +ve",
+    "row": 3,
+    "col": 3,
+    "crop": {
+      "x": 801,
+      "y": 1306,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/SYL019.png"
+  },
+  {
+    "empId": "SYL008",
+    "name": "SHIBANANDA PAUL",
+    "designation": "Asst. Manager Sales & Ticketing",
+    "blood": "O +ve",
+    "row": 3,
+    "col": 4,
+    "crop": {
+      "x": 1039,
+      "y": 1306,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/SYL008.png"
+  },
+  {
+    "empId": "SYL010",
+    "name": "AHMED BIN SIDDIQ",
+    "designation": "Executive Reservation & Ticketing",
+    "blood": "O +ve",
+    "row": 3,
+    "col": 5,
+    "crop": {
+      "x": 1277,
+      "y": 1306,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/SYL010.png"
+  },
+  {
+    "empId": "SYL027",
+    "name": "IMRAN AHMED CHOWDHURY",
+    "designation": "Sr. Executive - Accounts",
+    "blood": "B +ve",
+    "row": 3,
+    "col": 6,
+    "crop": {
+      "x": 1515,
+      "y": 1306,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/SYL027.png"
+  },
+  {
+    "empId": "SYL062",
+    "name": "SUBASH DAS",
+    "designation": "Branch Manager Moulvibazar Office",
+    "blood": "O +ve",
+    "row": 3,
+    "col": 7,
+    "crop": {
+      "x": 1754,
+      "y": 1306,
+      "w": 222,
+      "h": 345
+    },
+    "file": "cards/SYL062.png"
+  },
+  {
+    "empId": "DAC511",
+    "name": "MD SHAH SULTAN BHUIYAN",
+    "designation": "Manager Reservation & Ticketing",
+    "blood": "B +ve",
+    "row": 4,
+    "col": 0,
+    "crop": {
+      "x": 86,
+      "y": 1701,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/DAC511.png"
+  },
+  {
+    "empId": "SYL052",
+    "name": "MUHAMMED RAFIQUL ISLAM RONY",
+    "designation": "Executive - Hajj & Umrah",
+    "blood": "O +ve",
+    "row": 4,
+    "col": 1,
+    "crop": {
+      "x": 324,
+      "y": 1701,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/SYL052.png"
+  },
+  {
+    "empId": "SYL061",
+    "name": "ABM BADAR UDDIN AHMED",
+    "designation": "Office In Charge Habiganj Office",
+    "blood": "O +ve",
+    "row": 4,
+    "col": 2,
+    "crop": {
+      "x": 562,
+      "y": 1701,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/SYL061.png"
+  },
+  {
+    "empId": "SYL022",
+    "name": "NOYEEM UDDIN AHMED",
+    "designation": "Accountant",
+    "blood": "O +ve",
+    "row": 4,
+    "col": 3,
+    "crop": {
+      "x": 801,
+      "y": 1701,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/SYL022.png"
+  },
+  {
+    "empId": "SYL023",
+    "name": "NIAZ MURSHED",
+    "designation": "Sr. Executive - Accounts",
+    "blood": "O +ve",
+    "row": 4,
+    "col": 4,
+    "crop": {
+      "x": 1039,
+      "y": 1701,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/SYL023.png"
+  },
+  {
+    "empId": "SYL058",
+    "name": "MD ADNAN SAEED",
+    "designation": "Executive - Accounts",
+    "blood": "AB +ve",
+    "row": 4,
+    "col": 5,
+    "crop": {
+      "x": 1277,
+      "y": 1701,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/SYL058.png"
+  },
+  {
+    "empId": "DAC544",
+    "name": "INZAMAMUL HAQUE",
+    "designation": "Executive - Hajj & Umrah",
+    "blood": "B +ve",
+    "row": 4,
+    "col": 6,
+    "crop": {
+      "x": 1515,
+      "y": 1701,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/DAC544.png"
+  },
+  {
+    "empId": "SYL021",
+    "name": "MD ABDUL AHAD",
+    "designation": "Manager - Accounts",
+    "blood": "B +ve",
+    "row": 4,
+    "col": 7,
+    "crop": {
+      "x": 1754,
+      "y": 1701,
+      "w": 222,
+      "h": 345
+    },
+    "file": "cards/SYL021.png"
+  },
+  {
+    "empId": "DAC507",
+    "name": "MD RASHAL",
+    "designation": "Executive - Man Power",
+    "blood": "A +ve",
+    "row": 5,
+    "col": 0,
+    "crop": {
+      "x": 86,
+      "y": 2096,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/DAC507.png"
+  },
+  {
+    "empId": "DAC516",
+    "name": "ARIFUR RAHMAN",
+    "designation": "Executive - Accounts",
+    "blood": "B +ve",
+    "row": 5,
+    "col": 1,
+    "crop": {
+      "x": 324,
+      "y": 2096,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/DAC516.png"
+  },
+  {
+    "empId": "DAC534",
+    "name": "TANVIR AHMED",
+    "designation": "Executive - Accounts",
+    "blood": "B +ve",
+    "row": 5,
+    "col": 2,
+    "crop": {
+      "x": 562,
+      "y": 2096,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/DAC534.png"
+  },
+  {
+    "empId": "SYL025",
+    "name": "ABDUL GOFUR RAHI",
+    "designation": "Sr. Executive - Accounts",
+    "blood": "A +ve",
+    "row": 5,
+    "col": 3,
+    "crop": {
+      "x": 801,
+      "y": 2096,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/SYL025.png"
+  },
+  {
+    "empId": "DAC552",
+    "name": "MD. NAZRUL ISLAM",
+    "designation": "Manager - Hajj & Umrah",
+    "blood": "O +ve",
+    "row": 5,
+    "col": 4,
+    "crop": {
+      "x": 1039,
+      "y": 2096,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/DAC552.png"
+  },
+  {
+    "empId": "DAC545",
+    "name": "Monira Israt Jahan",
+    "designation": "Chief Executive Officer",
+    "blood": "O +ve",
+    "row": 5,
+    "col": 5,
+    "crop": {
+      "x": 1277,
+      "y": 2096,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/DAC545.png"
+  },
+  {
+    "empId": "DAC648",
+    "name": "NADIA ISLAM",
+    "designation": "Senior Executive Business Development",
+    "blood": "B +ve",
+    "row": 5,
+    "col": 6,
+    "crop": {
+      "x": 1515,
+      "y": 2096,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/DAC648.png"
+  },
+  {
+    "empId": "DAC551",
+    "name": "MIZANUR RAHMAN RANA",
+    "designation": "Senior Executive Reservation & Ticketing",
+    "blood": "A +ve",
+    "row": 5,
+    "col": 7,
+    "crop": {
+      "x": 1754,
+      "y": 2096,
+      "w": 222,
+      "h": 345
+    },
+    "file": "cards/DAC551.png"
+  },
+  {
+    "empId": "DAC550",
+    "name": "MIZANUR RAHMAN",
+    "designation": "Assistant Manager Business Development",
+    "blood": "A +ve",
+    "row": 6,
+    "col": 0,
+    "crop": {
+      "x": 86,
+      "y": 2469,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/DAC550.png"
+  },
+  {
+    "empId": "DAC546",
+    "name": "FUAD HASAN KHAN",
+    "designation": "Executive - Hajj & Umrah",
+    "blood": "B +ve",
+    "row": 6,
+    "col": 1,
+    "crop": {
+      "x": 324,
+      "y": 2469,
+      "w": 223,
+      "h": 345
+    },
+    "file": "cards/DAC546.png"
+  }
+]

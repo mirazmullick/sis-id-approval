@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suma Group — Employee ID Card Approval</title>
+<style>
+  :root{
+    --teal:#2a7776; --teal-dk:#1e5b5a; --teal-lt:#e4eded;
+    --gold:#e5af2b; --gold-dk:#b8860b;
+    --ink:#231f20; --muted:#6b7280;
+    --bg:#f4f6f6; --panel:#ffffff; --line:#e3e8e8;
+    --ok:#177a4c; --ok-bg:#e7f4ed;
+    --warn:#a35a06; --warn-bg:#fdf1e0;
+    --radius:14px;
+    --shadow:0 1px 2px rgba(16,24,40,.06), 0 8px 24px rgba(16,24,40,.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --teal:#3d9d9b; --teal-dk:#2a7776; --teal-lt:#17302f;
+      --ink:#e8eceb; --muted:#9aa5a4;
+      --bg:#0f1717; --panel:#151f1f; --line:#243333;
+      --ok:#5cc48d; --ok-bg:#13301f;
+      --warn:#e0a557; --warn-bg:#312312;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font:15px/1.5 "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  button,input,textarea,select{font:inherit; color:inherit}
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:30;
+    background:var(--panel); border-bottom:1px solid var(--line);
+    padding:10px 18px; display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+  }
+  .brand{display:flex; align-items:center; gap:11px; margin-right:auto}
+  /* the mark is cut from the ID artwork with a transparent background, so the
+     white channel of the S curve comes from the tile underneath — keep it white */
+  .mark{
+    background:#fff;border-radius:10px;flex:none;
+    padding:6px 8px;display:grid;place-items:center;
+    box-shadow:0 0 0 1px var(--line);
+  }
+  .mark img{height:30px;width:auto;display:block}
+  .brand h1{margin:0;font-size:16px;letter-spacing:.2px}
+  .brand p{margin:0;font-size:12.5px;color:var(--muted)}
+  .who{display:flex;align-items:center;gap:8px}
+  .who label{font-size:12.5px;color:var(--muted)}
+  .who input{
+    width:170px;padding:7px 10px;border:1px solid var(--line);border-radius:9px;
+    background:var(--bg);
+  }
+  .who input:focus{outline:2px solid var(--teal);outline-offset:1px}
+
+  .stats{display:flex;align-items:center;gap:14px}
+  .bar{width:150px;height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+  .bar i{display:block;height:100%;background:var(--teal);width:0;transition:width .3s}
+  .stats b{font-variant-numeric:tabular-nums}
+  .stats .sub{font-size:12.5px;color:var(--muted)}
+
+  .btn{
+    padding:8px 13px;border:1px solid var(--line);background:var(--panel);
+    border-radius:9px;cursor:pointer;font-size:13.5px;font-weight:600;white-space:nowrap;
+  }
+  .btn:hover{border-color:var(--teal);color:var(--teal)}
+  .btn.primary{background:var(--teal);border-color:var(--teal);color:#fff}
+  .btn.primary:hover{background:var(--teal-dk);color:#fff}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  .menu{position:relative}
+  .menu>div{
+    position:absolute;right:0;top:calc(100% + 6px);min-width:230px;z-index:40;
+    background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    box-shadow:var(--shadow);padding:6px;display:none;
+  }
+  .menu.open>div{display:block}
+  .menu button, .menu label{
+    display:block;width:100%;text-align:left;padding:9px 11px;border:0;border-radius:8px;
+    background:none;cursor:pointer;font-size:13.5px;
+  }
+  .menu button:hover, .menu label:hover{background:var(--teal-lt)}
+  .menu hr{border:0;border-top:1px solid var(--line);margin:5px 2px}
+
+  /* ---------- layout ---------- */
+  main{display:grid;grid-template-columns:320px 1fr;gap:18px;padding:18px;align-items:start}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+
+  /* ---------- sidebar ---------- */
+  aside{position:sticky;top:76px;max-height:calc(100vh - 94px);display:flex;flex-direction:column;overflow:hidden}
+  .search{padding:12px 12px 8px}
+  .search input{
+    width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);
+  }
+  .search input:focus{outline:2px solid var(--teal);outline-offset:1px}
+  .tabs{display:flex;gap:6px;padding:0 12px 10px;flex-wrap:wrap}
+  .tab{
+    padding:5px 10px;border-radius:99px;border:1px solid var(--line);background:none;
+    font-size:12.5px;cursor:pointer;font-weight:600;color:var(--muted)
+  }
+  .tab[aria-selected="true"]{background:var(--teal);border-color:var(--teal);color:#fff}
+  ul.list{list-style:none;margin:0;padding:0 8px 10px;overflow:auto;flex:1}
+  ul.list li{margin-bottom:2px}
+  ul.list button{
+    width:100%;display:flex;align-items:center;gap:10px;text-align:left;
+    padding:9px 10px;border:0;border-radius:10px;background:none;cursor:pointer;
+  }
+  ul.list button:hover{background:var(--teal-lt)}
+  ul.list button[aria-current="true"]{background:var(--teal-lt);box-shadow:inset 0 0 0 1px var(--teal)}
+  .dot{width:9px;height:9px;border-radius:99px;flex:none;background:var(--line)}
+  .dot.approved{background:var(--ok)}
+  .dot.correction{background:var(--gold-dk)}
+  .li-txt{min-width:0;flex:1}
+  .li-txt strong{display:block;font-size:13.5px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .li-txt span{font-size:12px;color:var(--muted)}
+  .empty{padding:22px 14px;color:var(--muted);font-size:13.5px;text-align:center}
+
+  /* ---------- card view ---------- */
+  section.view{padding:20px 22px 24px}
+  .view-grid{display:grid;grid-template-columns:300px 1fr;gap:26px;align-items:start}
+  .cardwrap{text-align:center}
+  .cardwrap img{
+    width:100%;max-width:300px;border-radius:14px;display:block;
+    box-shadow:0 2px 6px rgba(16,24,40,.12), 0 16px 40px rgba(16,24,40,.14);
+  }
+  .cardwrap a{display:inline-block;margin-top:12px;font-size:13px;color:var(--teal);font-weight:600}
+  h2{margin:0 0 2px;font-size:22px;letter-spacing:.2px}
+  .sub{color:var(--muted);font-size:14px;margin:0 0 16px}
+  dl.facts{display:grid;grid-template-columns:auto 1fr;gap:7px 16px;margin:0 0 20px;font-size:14px}
+  dl.facts dt{color:var(--muted)}
+  dl.facts dd{margin:0;font-weight:600}
+
+  .status{
+    display:inline-flex;align-items:center;gap:7px;padding:5px 11px;border-radius:99px;
+    font-size:12.5px;font-weight:700;margin-bottom:16px;
+    background:var(--line);color:var(--muted)
+  }
+  .status.approved{background:var(--ok-bg);color:var(--ok)}
+  .status.correction{background:var(--warn-bg);color:var(--warn)}
+
+  .approve{
+    display:flex;gap:12px;align-items:flex-start;padding:14px 16px;
+    border:1.5px solid var(--line);border-radius:12px;cursor:pointer;margin-bottom:16px;
+    background:var(--bg);
+  }
+  .approve:hover{border-color:var(--teal)}
+  .approve.on{border-color:var(--ok);background:var(--ok-bg)}
+  .approve input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--ok);flex:none;cursor:pointer}
+  .approve strong{display:block;font-size:15px}
+  .approve span{font-size:13px;color:var(--muted)}
+
+  .field label{display:block;font-weight:600;font-size:14px;margin-bottom:6px}
+  .field .hint{font-weight:400;color:var(--muted);font-size:13px}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+  .chip{
+    padding:5px 10px;border-radius:99px;border:1px dashed var(--line);background:none;
+    font-size:12.5px;cursor:pointer;color:var(--muted)
+  }
+  .chip:hover{border-style:solid;border-color:var(--teal);color:var(--teal)}
+  textarea{
+    width:100%;min-height:110px;padding:11px 13px;border:1px solid var(--line);
+    border-radius:11px;background:var(--bg);resize:vertical;
+  }
+  textarea:focus{outline:2px solid var(--teal);outline-offset:1px}
+  .actions{display:flex;align-items:center;gap:10px;margin-top:16px;flex-wrap:wrap}
+  .saved{font-size:13px;color:var(--ok);opacity:0;transition:opacity .2s}
+  .saved.show{opacity:1}
+
+  .placeholder{padding:52px 20px 60px;text-align:center;color:var(--muted)}
+  .placeholder h2{color:var(--ink);margin-bottom:8px}
+  .placeholder p{max-width:430px;margin:0 auto}
+  .lockup{
+    background:#fff;border-radius:16px;box-shadow:0 0 0 1px var(--line);
+    display:inline-grid;place-items:center;padding:20px 26px;margin-bottom:26px;
+  }
+  .lockup img{height:92px;width:auto;display:block}
+
+  .toast{
+    position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);
+    background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:10px;
+    font-size:13.5px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:60;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%)}
+
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+  @media (max-width:900px){
+    main{grid-template-columns:1fr;padding:12px;gap:12px}
+    aside{position:static;max-height:none}
+    ul.list{max-height:44vh}
+    .view-grid{grid-template-columns:1fr}
+    .cardwrap img{margin:0 auto}
+    .brand{width:100%}
+    .stats{order:3}
+  }
+  @media print{
+    header,aside,.approve,.chips,.actions,.toast{display:none!important}
+    main{display:block;padding:0}
+    .panel{border:0;box-shadow:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="mark"><img src="__MARK__" alt="Suma Group"></div>
+    <div>
+      <h1>Employee ID Card Approval</h1>
+      <p>Suma Group &middot; check your card, then approve or request a correction</p>
+    </div>
+  </div>
+
+  <div class="who">
+    <label for="reviewer">Reviewed by</label>
+    <input id="reviewer" placeholder="Your name" autocomplete="name">
+  </div>
+
+  <div class="stats">
+    <div class="bar"><i id="barFill"></i></div>
+    <div>
+      <b id="statCount">0 / 0</b>
+      <div class="sub" id="statBreak">reviewed</div>
+    </div>
+  </div>
+
+  <div class="menu" id="menu">
+    <button class="btn" id="menuBtn" aria-haspopup="true" aria-expanded="false">Export &amp; tools &#9662;</button>
+    <div role="menu">
+      <button data-act="csv">Download responses (CSV)</button>
+      <button data-act="json">Download responses (JSON)</button>
+      <hr>
+      <button data-act="copyMine">Copy my response as text</button>
+      <button data-act="copyCorrections">Copy correction list for designer</button>
+      <hr>
+      <label>Merge responses (JSON)&hellip;<input type="file" id="importFile" accept=".json,application/json" multiple hidden></label>
+      <button data-act="reset">Clear all responses on this device</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <aside class="panel">
+    <div class="search">
+      <label class="sr" for="q">Search employees</label>
+      <input id="q" type="search" placeholder="Search name, ID or designation" autocomplete="off">
+    </div>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" data-filter="all" aria-selected="true">All <span data-count="all"></span></button>
+      <button class="tab" role="tab" data-filter="pending" aria-selected="false">Pending <span data-count="pending"></span></button>
+      <button class="tab" role="tab" data-filter="approved" aria-selected="false">Approved <span data-count="approved"></span></button>
+      <button class="tab" role="tab" data-filter="correction" aria-selected="false">Corrections <span data-count="correction"></span></button>
+    </div>
+    <ul class="list" id="list"></ul>
+  </aside>
+
+  <section class="panel view" id="view"></section>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/*__DATA__*/
+</script>
+
+<script>
+(function () {
+  'use strict';
+  var EMP = window.__EMPLOYEES__ || [];
+  var LOCKUP = window.__LOCKUP__ || '';
+  var KEY = 'sis_id_approval_v1';
+  var state = load();
+  var filter = 'all';
+  var query = '';
+  var currentId = null;
+  var saveTimer = null;
+
+  function load() {
+    try {
+      var raw = JSON.parse(localStorage.getItem(KEY) || '{}');
+      return { reviewer: raw.reviewer || '', responses: raw.responses || {} };
+    } catch (e) { return { reviewer: '', responses: {} }; }
+  }
+  function persist() {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); }
+    catch (e) { toast('Could not save on this device (storage blocked)'); }
+  }
+  function resp(id) {
+    return state.responses[id] || { approved: false, remarks: '', by: '', at: '' };
+  }
+  function statusOf(id) {
+    var r = resp(id);
+    if (r.approved) return 'approved';
+    if ((r.remarks || '').trim()) return 'correction';
+    return 'pending';
+  }
+  function label(s) {
+    return s === 'approved' ? 'Approved' : s === 'correction' ? 'Correction requested' : 'Not reviewed yet';
+  }
+
+  /* ---------- header stats ---------- */
+  function renderStats() {
+    var counts = { all: EMP.length, pending: 0, approved: 0, correction: 0 };
+    EMP.forEach(function (e) { counts[statusOf(e.id)]++; });
+    var done = counts.approved + counts.correction;
+    document.getElementById('barFill').style.width = (EMP.length ? done / EMP.length * 100 : 0) + '%';
+    document.getElementById('statCount').textContent = done + ' / ' + EMP.length;
+    document.getElementById('statBreak').textContent =
+      counts.approved + ' approved · ' + counts.correction + ' correction' + (counts.correction === 1 ? '' : 's');
+    Object.keys(counts).forEach(function (k) {
+      var el = document.querySelector('[data-count="' + k + '"]');
+      if (el) el.textContent = '(' + counts[k] + ')';
+    });
+  }
+
+  /* ---------- sidebar ---------- */
+  function matches(e) {
+    if (filter !== 'all' && statusOf(e.id) !== filter) return false;
+    if (!query) return true;
+    var q = query.toLowerCase();
+    return (e.name + ' ' + e.id + ' ' + e.designation + ' ' + e.office).toLowerCase().indexOf(q) > -1;
+  }
+  function renderList() {
+    var ul = document.getElementById('list');
+    var rows = EMP.filter(matches);
+    ul.innerHTML = '';
+    if (!rows.length) {
+      var li = document.createElement('li');
+      li.className = 'empty';
+      li.textContent = 'No one matches that search.';
+      ul.appendChild(li);
+      return;
+    }
+    rows.forEach(function (e) {
+      var st = statusOf(e.id);
+      var li = document.createElement('li');
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('aria-current', e.id === currentId ? 'true' : 'false');
+      b.onclick = function () { open(e.id); };
+      var dot = document.createElement('span');
+      dot.className = 'dot ' + st;
+      dot.title = label(st);
+      var txt = document.createElement('span');
+      txt.className = 'li-txt';
+      var strong = document.createElement('strong');
+      strong.textContent = e.name;
+      var span = document.createElement('span');
+      span.textContent = e.id + ' · ' + e.office;
+      txt.appendChild(strong); txt.appendChild(span);
+      b.appendChild(dot); b.appendChild(txt);
+      li.appendChild(b);
+      ul.appendChild(li);
+    });
+  }
+
+  /* ---------- card view ---------- */
+  var TAGS = [
+    ['Name spelling', 'Name spelling should be: '],
+    ['Designation', 'Designation should be: '],
+    ['Blood group', 'Blood group should be: '],
+    ['ID number', 'ID number should be: '],
+    ['Photo', 'Please replace the photo. '],
+    ['Office/branch', 'Office / branch should be: ']
+  ];
+
+  function open(id) {
+    currentId = id;
+    if (history.replaceState) history.replaceState(null, '', '#' + id);
+    render();
+    if (window.innerWidth <= 900) document.getElementById('view').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function renderView() {
+    var view = document.getElementById('view');
+    var e = EMP.filter(function (x) { return x.id === currentId; })[0];
+    if (!e) {
+      view.innerHTML = '<div class="placeholder">' +
+        '<div class="lockup"><img src="' + LOCKUP + '" alt="Suma Group"></div>' +
+        '<h2>Find your ID card</h2>' +
+        '<p>Search your name or employee ID on the left, then open your card to approve it' +
+        ' or write what needs to be corrected.</p></div>';
+      return;
+    }
+    var r = resp(e.id), st = statusOf(e.id);
+    view.innerHTML = '';
+
+    var grid = document.createElement('div');
+    grid.className = 'view-grid';
+
+    // left: the card artwork
+    var left = document.createElement('div');
+    left.className = 'cardwrap';
+    var img = document.createElement('img');
+    img.src = e.img;
+    img.alt = 'ID card of ' + e.name;
+    var dl = document.createElement('a');
+    dl.href = e.img;
+    dl.download = e.id + ' - ' + e.name + '.jpg';
+    dl.textContent = 'Download this card image';
+    left.appendChild(img); left.appendChild(dl);
+
+    // right: details + decision
+    var right = document.createElement('div');
+
+    var h2 = document.createElement('h2'); h2.textContent = e.name;
+    var sub = document.createElement('p'); sub.className = 'sub';
+    sub.textContent = e.designation + ' · ' + e.office + ' office';
+
+    var badge = document.createElement('div');
+    badge.id = 'statusBadge';
+    badge.className = 'status ' + st;
+    badge.textContent = label(st) + (r.at ? ' · ' + new Date(r.at).toLocaleString() : '');
+
+    var dlFacts = document.createElement('dl');
+    dlFacts.className = 'facts';
+    [['Employee ID', e.id], ['Designation', e.designation], ['Blood group', e.blood], ['Office', e.office]]
+      .forEach(function (p) {
+        var dt = document.createElement('dt'); dt.textContent = p[0];
+        var dd = document.createElement('dd'); dd.textContent = p[1] || '—';
+        dlFacts.appendChild(dt); dlFacts.appendChild(dd);
+      });
+
+    // approve checkbox
+    var lab = document.createElement('label');
+    lab.className = 'approve' + (r.approved ? ' on' : '');
+    var cb = document.createElement('input');
+    cb.type = 'checkbox'; cb.checked = !!r.approved; cb.id = 'okBox';
+    var wrap = document.createElement('span');
+    wrap.innerHTML = '<strong>The information on this ID card is correct — approve it</strong>' +
+      '<span>Tick this only if the name, ID, designation, blood group and photo are all right.</span>';
+    lab.appendChild(cb); lab.appendChild(wrap);
+    cb.onchange = function () {
+      update(e.id, { approved: cb.checked });
+      lab.className = 'approve' + (cb.checked ? ' on' : '');
+      render();
+      flash();
+    };
+
+    // remarks
+    var field = document.createElement('div');
+    field.className = 'field';
+    var flabel = document.createElement('label');
+    flabel.setAttribute('for', 'remarks');
+    flabel.innerHTML = 'Remarks / corrections needed <span class="hint">' +
+      '&mdash; write exactly what should be changed</span>';
+    var chips = document.createElement('div');
+    chips.className = 'chips';
+    TAGS.forEach(function (t) {
+      var c = document.createElement('button');
+      c.type = 'button'; c.className = 'chip'; c.textContent = t[0];
+      c.onclick = function () {
+        var ta = document.getElementById('remarks');
+        ta.value = (ta.value.trim() ? ta.value.replace(/\s*$/, '\n') : '') + t[1];
+        ta.focus();
+        ta.setSelectionRange(ta.value.length, ta.value.length);
+        queueSave(e.id, ta.value);
+      };
+      chips.appendChild(c);
+    });
+    var ta = document.createElement('textarea');
+    ta.id = 'remarks';
+    ta.value = r.remarks || '';
+    ta.placeholder = 'Example: Designation should be "Sr. Executive (Holidays)", and blood group is B+ve not O+ve.';
+    ta.oninput = function () { queueSave(e.id, ta.value); };
+    field.appendChild(flabel); field.appendChild(chips); field.appendChild(ta);
+
+    // actions
+    var actions = document.createElement('div');
+    actions.className = 'actions';
+    var next = document.createElement('button');
+    next.className = 'btn primary'; next.type = 'button';
+    next.textContent = 'Save and open next →';
+    next.onclick = function () {
+      commit(e.id, { remarks: document.getElementById('remarks').value });
+      var i = EMP.map(function (x) { return x.id; }).indexOf(e.id);
+      open(EMP[(i + 1) % EMP.length].id);
+      flash();
+    };
+    var prev = document.createElement('button');
+    prev.className = 'btn'; prev.type = 'button'; prev.textContent = '← Previous';
+    prev.onclick = function () {
+      commit(e.id, { remarks: document.getElementById('remarks').value });
+      var i = EMP.map(function (x) { return x.id; }).indexOf(e.id);
+      open(EMP[(i - 1 + EMP.length) % EMP.length].id);
+    };
+    var clear = document.createElement('button');
+    clear.className = 'btn'; clear.type = 'button'; clear.textContent = 'Clear my response';
+    clear.onclick = function () {
+      delete state.responses[e.id];
+      persist(); render();
+    };
+    var saved = document.createElement('span');
+    saved.className = 'saved'; saved.id = 'savedMsg'; saved.textContent = '✓ Saved on this device';
+    actions.appendChild(prev); actions.appendChild(next); actions.appendChild(clear); actions.appendChild(saved);
+
+    right.appendChild(h2); right.appendChild(sub); right.appendChild(badge);
+    right.appendChild(dlFacts); right.appendChild(lab); right.appendChild(field); right.appendChild(actions);
+
+    grid.appendChild(left); grid.appendChild(right);
+    view.appendChild(grid);
+  }
+
+  function commit(id, patch) { update(id, patch); }
+  function update(id, patch) {
+    var r = resp(id);
+    var next = {
+      approved: 'approved' in patch ? !!patch.approved : r.approved,
+      remarks: 'remarks' in patch ? patch.remarks : r.remarks,
+      by: state.reviewer || r.by || '',
+      at: new Date().toISOString()
+    };
+    if (!next.approved && !(next.remarks || '').trim()) delete state.responses[id];
+    else state.responses[id] = next;
+    persist();
+    renderStats(); renderList(); refreshBadge(id);
+  }
+  // keeps the badge honest while the user is still typing in the remarks box,
+  // without re-rendering the view out from under the caret
+  function refreshBadge(id) {
+    var badge = document.getElementById('statusBadge');
+    if (!badge || id !== currentId) return;
+    var st = statusOf(id), at = resp(id).at;
+    badge.className = 'status ' + st;
+    badge.textContent = label(st) + (at ? ' · ' + new Date(at).toLocaleString() : '');
+  }
+  function queueSave(id, remarks) {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function () { update(id, { remarks: remarks }); flash(); }, 500);
+  }
+  function flash() {
+    var el = document.getElementById('savedMsg');
+    if (!el) return;
+    el.classList.add('show');
+    setTimeout(function () { el.classList.remove('show'); }, 1400);
+  }
+  function render() { renderStats(); renderList(); renderView(); }
+
+  /* ---------- export / import ---------- */
+  function rows() {
+    return EMP.map(function (e) {
+      var r = resp(e.id);
+      return {
+        employee_id: e.id, name: e.name, designation: e.designation,
+        blood_group: e.blood, office: e.office,
+        status: statusOf(e.id), approved: r.approved ? 'Yes' : 'No',
+        remarks: (r.remarks || '').replace(/\s*\n\s*/g, ' | ').trim(),
+        reviewed_by: r.by || '', reviewed_at: r.at || ''
+      };
+    });
+  }
+  function download(name, text, mime) {
+    var blob = new Blob([text], { type: mime + ';charset=utf-8' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = name;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
+  }
+  function stamp() { return new Date().toISOString().slice(0, 10); }
+  function csvCell(v) {
+    v = String(v == null ? '' : v);
+    return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v;
+  }
+  function exportCsv() {
+    var data = rows();
+    var head = Object.keys(data[0]);
+    var body = data.map(function (r) { return head.map(function (h) { return csvCell(r[h]); }).join(','); });
+    download('SIS-ID-approvals-' + stamp() + '.csv', '﻿' + head.join(',') + '\n' + body.join('\n'), 'text/csv');
+  }
+  function exportJson() {
+    download('SIS-ID-approvals-' + (state.reviewer ? state.reviewer.replace(/[^\w]+/g, '-') + '-' : '') + stamp() + '.json',
+      JSON.stringify({ app: 'sis_id_approval_v1', reviewer: state.reviewer, exported: new Date().toISOString(), responses: state.responses }, null, 2),
+      'application/json');
+  }
+  function copy(text, msg) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { toast(msg); }, function () { fallback(); });
+    } else fallback();
+    function fallback() {
+      var t = document.createElement('textarea');
+      t.value = text; document.body.appendChild(t); t.select();
+      try { document.execCommand('copy'); toast(msg); } catch (e) { toast('Copy failed — select the text manually'); }
+      t.remove();
+    }
+  }
+  function copyMine() {
+    if (!currentId) return toast('Open your card first');
+    var e = EMP.filter(function (x) { return x.id === currentId; })[0];
+    var r = resp(e.id), st = statusOf(e.id);
+    copy('Suma Group ID card review\n' + e.name + ' (' + e.id + ')\n' +
+      'Status: ' + label(st) + '\n' +
+      (r.remarks ? 'Corrections: ' + r.remarks + '\n' : '') +
+      (state.reviewer ? 'Reviewed by: ' + state.reviewer + '\n' : ''), 'Response copied — paste it to HR');
+  }
+  function copyCorrections() {
+    var list = EMP.filter(function (e) { return statusOf(e.id) === 'correction'; });
+    if (!list.length) return toast('No corrections recorded yet');
+    copy('ID card corrections — ' + new Date().toLocaleDateString() + '\n\n' +
+      list.map(function (e, i) {
+        return (i + 1) + '. ' + e.name + ' (' + e.id + ')\n   ' + resp(e.id).remarks.replace(/\n/g, '\n   ');
+      }).join('\n\n'), list.length + ' correction(s) copied');
+  }
+  function importFiles(files) {
+    var pending = files.length, merged = 0;
+    Array.prototype.forEach.call(files, function (f) {
+      var fr = new FileReader();
+      fr.onload = function () {
+        try {
+          var d = JSON.parse(fr.result);
+          var rs = d.responses || {};
+          Object.keys(rs).forEach(function (id) {
+            var incoming = rs[id], have = state.responses[id];
+            if (!have || (incoming.at || '') >= (have.at || '')) { state.responses[id] = incoming; merged++; }
+          });
+        } catch (e) { toast('Could not read ' + f.name); }
+        if (!--pending) { persist(); render(); toast(merged + ' response(s) merged'); }
+      };
+      fr.readAsText(f);
+    });
+  }
+  function toast(msg) {
+    var t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    clearTimeout(t._t);
+    t._t = setTimeout(function () { t.classList.remove('show'); }, 2600);
+  }
+
+  /* ---------- wiring ---------- */
+  var reviewer = document.getElementById('reviewer');
+  reviewer.value = state.reviewer;
+  reviewer.oninput = function () { state.reviewer = reviewer.value.trim(); persist(); };
+
+  document.getElementById('q').oninput = function () { query = this.value.trim(); renderList(); };
+
+  Array.prototype.forEach.call(document.querySelectorAll('.tab'), function (tab) {
+    tab.onclick = function () {
+      filter = tab.dataset.filter;
+      Array.prototype.forEach.call(document.querySelectorAll('.tab'), function (t) {
+        t.setAttribute('aria-selected', String(t === tab));
+      });
+      renderList();
+    };
+  });
+
+  var menu = document.getElementById('menu'), menuBtn = document.getElementById('menuBtn');
+  menuBtn.onclick = function (ev) {
+    ev.stopPropagation();
+    menu.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', String(menu.classList.contains('open')));
+  };
+  document.addEventListener('click', function () {
+    menu.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false');
+  });
+  menu.querySelector('[role="menu"]').addEventListener('click', function (ev) {
+    var act = ev.target.dataset && ev.target.dataset.act;
+    if (!act) return;
+    menu.classList.remove('open');
+    if (act === 'csv') exportCsv();
+    else if (act === 'json') exportJson();
+    else if (act === 'copyMine') copyMine();
+    else if (act === 'copyCorrections') copyCorrections();
+    else if (act === 'reset') {
+      if (confirm('Delete every response saved in this browser? This cannot be undone.')) {
+        state.responses = {}; persist(); render(); toast('All responses cleared');
+      }
+    }
+  });
+  document.getElementById('importFile').onchange = function () {
+    if (this.files && this.files.length) importFiles(this.files);
+    this.value = '';
+  };
+
+  var hash = decodeURIComponent(location.hash.replace('#', '')).toUpperCase();
+  if (hash && EMP.some(function (e) { return e.id === hash; })) currentId = hash;
+  render();
+  if (!currentId) document.getElementById('q').focus();
+})();
+</script>
+</body>
+</html>

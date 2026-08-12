@@ -1,0 +1,6 @@
+# source artwork stays out of the repo (66 MB, and it is the master file)
+*.pdf
+node_modules/
+*.ppm
+Thumbs.db
+desktop.ini
