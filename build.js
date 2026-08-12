@@ -42,9 +42,12 @@ if (endpoint && !/^https:\/\/script\.google\.com\/.*\/exec$/.test(endpoint.url) 
   throw new Error('endpoint.json url should be the Apps Script /exec URL, got: ' + endpoint.url);
 }
 
+const xlsxLib = fs.readFileSync(path.join(root, 'lib', 'xlsx.js'), 'utf8');
+
 function render(records) {
   return template
     .replace('__MARK__', mark)
+    .replace('/*__XLSX_LIB__*/', xlsxLib)
     .replace('/*__DATA__*/',
       'window.__EMPLOYEES__ = ' + JSON.stringify(records).replace(/<\//g, '<\\/') + ';\n' +
       'window.__LOCKUP__ = ' + JSON.stringify(lockup) + ';' +

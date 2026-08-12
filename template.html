@@ -284,6 +284,7 @@
   <div class="menu" id="menu">
     <button class="btn" id="menuBtn" aria-haspopup="true" aria-expanded="false">Export &amp; tools &#9662;</button>
     <div role="menu">
+      <button data-act="xlsx">Download responses (Excel)</button>
       <button data-act="csv">Download responses (CSV)</button>
       <button data-act="json">Download responses (JSON)</button>
       <hr>
@@ -316,6 +317,10 @@
 </main>
 
 <div class="toast" id="toast"></div>
+
+<script>
+/*__XLSX_LIB__*/
+</script>
 
 <script>
 /*__DATA__*/
@@ -939,8 +944,8 @@
     refresh.disabled = live.loading;
     refresh.onclick = loadLive;
     var csv = document.createElement('button');
-    csv.className = 'btn'; csv.type = 'button'; csv.textContent = 'Download CSV';
-    csv.onclick = function () { exportLiveCsv(byId); };
+    csv.className = 'btn'; csv.type = 'button'; csv.textContent = 'Download Excel';
+    csv.onclick = function () { exportLiveXlsx(byId); };
     var back = document.createElement('button');
     back.className = 'btn'; back.type = 'button'; back.textContent = '← Back to cards';
     back.onclick = function () { mode = 'card'; renderView(); };
@@ -1117,6 +1122,94 @@
     v = String(v == null ? '' : v);
     return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v;
   }
+  /* ---------- Excel ---------- */
+  function saveWorkbook(name, sheets) {
+    if (!window.XLSX) return toast('Excel export is unavailable in this copy');
+    var bytes = window.XLSX.buildXlsx(sheets);
+    var blob = new Blob([bytes], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = name;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
+    toast('Excel workbook downloaded');
+  }
+
+  function summarySheet(counts, total, source) {
+    return {
+      name: 'Summary',
+      columns: [{ title: 'Suma Group — ID card approvals', width: 34 }, { title: '', width: 18 }],
+      rows: [
+        ['Generated', new Date().toLocaleString()],
+        ['Source', source],
+        ['Prepared by', state.reviewer || '—'],
+        [],
+        ['Employees on the printed sheet', String(total)],
+        ['Approved', String(counts.approved)],
+        ['Correction requested', String(counts.correction)],
+        ['Not answered yet', String(counts.pending)],
+        ['New ID cards requested', String(counts['new'] || 0)]
+      ]
+    };
+  }
+
+  var RESP_COLS = [
+    { title: 'Employee ID', width: 13 }, { title: 'Name', width: 32 }, { title: 'Designation', width: 32 },
+    { title: 'Blood group', width: 12 }, { title: 'Office', width: 14 }, { title: 'Status', width: 20 },
+    { title: 'Approved', width: 10 }, { title: 'Remarks / corrections', width: 52 },
+    { title: 'Answered by', width: 22 }, { title: 'When', width: 22 }
+  ];
+  var NEW_COLS = [
+    { title: 'Ref', width: 14 }, { title: 'Employee ID', width: 13 }, { title: 'Name', width: 32 },
+    { title: 'Designation', width: 32 }, { title: 'Blood group', width: 12 }, { title: 'Office', width: 14 },
+    { title: 'Notes for HR', width: 46 }, { title: 'Photo', width: 34 },
+    { title: 'Requested by', width: 22 }, { title: 'When', width: 22 }
+  ];
+  function when(v) { return v ? new Date(v).toLocaleString() : ''; }
+
+  // workbook from what is saved on this device
+  function exportXlsx() {
+    var counts = { approved: 0, correction: 0, pending: 0, 'new': state.newEntries.length };
+    EMP.forEach(function (e) { counts[statusOf(e.id)]++; });
+    var respRows = EMP.map(function (e) {
+      var r = resp(e.id), st = statusOf(e.id);
+      return [e.id, e.name, e.designation, e.blood, e.office,
+        st === 'correction' ? 'Correction requested' : st === 'approved' ? 'Approved' : 'Not answered',
+        r.approved ? 'Yes' : 'No', r.remarks || '', r.by || '', when(r.at)];
+    });
+    var newRows = state.newEntries.map(function (n) {
+      return [n.ref, n.empId || '', n.name, n.designation, n.blood, n.office,
+        n.remarks || '', n.photo ? 'attached, sent to HR' : '', n.by || '', when(n.at)];
+    });
+    saveWorkbook('SIS-ID-approvals-' + stamp() + '.xlsx', [
+      summarySheet(counts, EMP.length, 'this device'),
+      { name: 'Responses', columns: RESP_COLS, rows: respRows },
+      { name: 'New requests', columns: NEW_COLS, rows: newRows }
+    ]);
+  }
+
+  // workbook from everything the team has sent in
+  function exportLiveXlsx(byId) {
+    var counts = { approved: 0, correction: 0, pending: 0, 'new': (live.news || []).length };
+    var respRows = EMP.map(function (e) {
+      var r = byId[e.id];
+      var st = r ? (r.approved ? 'approved' : (r.remarks || '').trim() ? 'correction' : 'pending') : 'pending';
+      counts[st]++;
+      return [e.id, e.name, e.designation, e.blood, e.office,
+        st === 'correction' ? 'Correction requested' : st === 'approved' ? 'Approved' : 'Not answered',
+        r && r.approved ? 'Yes' : 'No', r ? r.remarks || '' : '', r ? r.by || '' : '', when(r && r.at)];
+    });
+    var newRows = (live.news || []).map(function (n) {
+      return [n.ref, n.empId || '', n.name, n.designation, n.blood, n.office,
+        n.remarks || '', n.photo || '', n.by || '', when(n.at)];
+    });
+    saveWorkbook('SIS-ID-team-responses-' + stamp() + '.xlsx', [
+      summarySheet(counts, EMP.length, 'everyone who has answered'),
+      { name: 'Responses', columns: RESP_COLS, rows: respRows },
+      { name: 'New requests', columns: NEW_COLS, rows: newRows }
+    ]);
+  }
+
   function exportCsv() {
     var data = rows();
     var head = Object.keys(data[0]);
@@ -1217,7 +1310,8 @@
     var act = ev.target.dataset && ev.target.dataset.act;
     if (!act) return;
     menu.classList.remove('open');
-    if (act === 'csv') exportCsv();
+    if (act === 'xlsx') exportXlsx();
+    else if (act === 'csv') exportCsv();
     else if (act === 'json') exportJson();
     else if (act === 'copyMine') copyMine();
     else if (act === 'copyCorrections') copyCorrections();
