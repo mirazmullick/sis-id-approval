@@ -34,7 +34,39 @@ it on a USB stick. Also downloadable from the live site at
 
 Direct link to one person's card: append their ID to the file path, e.g. `…ID-Approval.html#SYL059`.
 
-## How HR collects the results
+## Collecting responses in a Google Sheet (recommended)
+
+Once this is connected, each person gets a **Send to HR** button, and a **Team responses**
+button shows everyone's answers in one live table — no files to merge.
+
+Set-up, once:
+
+1. Create a blank Google Sheet (name it e.g. *Suma ID card approvals*).
+2. **Extensions → Apps Script**. Delete the sample code, paste all of `apps-script/Code.gs`, save.
+   The token is already filled in and matches `endpoint.example.json`.
+3. **Deploy → New deployment → Web app**
+   - Execute as: **Me**
+   - Who has access: **Anyone**
+   - Deploy, then authorise when Google asks (it warns because the script is yours and unverified —
+     choose *Advanced → Go to project*).
+4. Copy the deployment URL. It ends in `/exec`.
+5. Save it as `endpoint.json` next to `endpoint.example.json`, then rebuild and push:
+
+```bash
+node build.js && git add -A && git commit -m "connect HR sheet" && git push
+```
+
+The Sheet grows two tabs by itself: **Responses** (one row per employee, latest answer) and
+**Log** (every submission, as an audit trail).
+
+Worth knowing: the endpoint URL and token are inside the public page, so anyone who views source
+could post a row. Junk rows would be visible and obviously wrong, and the Log tab shows
+everything, but this is not authentication. Sheet access itself stays private to you.
+
+Without `endpoint.json` the app simply hides those two buttons and works exactly as described
+below.
+
+## How HR collects the results (without the Sheet)
 
 Under **Export & tools**:
 

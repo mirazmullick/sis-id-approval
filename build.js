@@ -34,12 +34,21 @@ const lockup = dataUri('suma-lockup.png');
 
 const template = fs.readFileSync(path.join(root, 'template.html'), 'utf8');
 
+// endpoint.json is the Google Apps Script web app that collects responses.
+// Absent = no Send/Team buttons, and the app behaves exactly as it did before.
+const endpointFile = path.join(root, 'endpoint.json');
+const endpoint = fs.existsSync(endpointFile) ? JSON.parse(fs.readFileSync(endpointFile, 'utf8')) : null;
+if (endpoint && !/^https:\/\/script\.google\.com\/.*\/exec$/.test(endpoint.url) && !process.env.ALLOW_ANY_ENDPOINT) {
+  throw new Error('endpoint.json url should be the Apps Script /exec URL, got: ' + endpoint.url);
+}
+
 function render(records) {
   return template
     .replace('__MARK__', mark)
     .replace('/*__DATA__*/',
       'window.__EMPLOYEES__ = ' + JSON.stringify(records).replace(/<\//g, '<\\/') + ';\n' +
-      'window.__LOCKUP__ = ' + JSON.stringify(lockup) + ';');
+      'window.__LOCKUP__ = ' + JSON.stringify(lockup) + ';' +
+      (endpoint ? '\nwindow.__SYNC__ = ' + JSON.stringify(endpoint) + ';' : ''));
 }
 
 const standalone = path.join(root, 'SIS-Employee-ID-Approval.html');

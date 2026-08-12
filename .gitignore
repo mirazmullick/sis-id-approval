@@ -4,3 +4,4 @@ node_modules/
 *.ppm
 Thumbs.db
 desktop.ini
+endpoint.json

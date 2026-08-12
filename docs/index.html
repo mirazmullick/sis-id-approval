@@ -172,6 +172,25 @@
   .saved{font-size:13px;color:var(--ok);opacity:0;transition:opacity .2s}
   .saved.show{opacity:1}
 
+  /* ---------- live team view ---------- */
+  .live-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+  .live-head h2{margin:0;flex:1}
+  .live-note{font-size:13px;color:var(--muted);margin:0 0 16px}
+  table.live{width:100%;border-collapse:collapse;font-size:13.5px}
+  table.live th{
+    text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.4px;
+    color:var(--muted);border-bottom:1px solid var(--line);padding:8px 10px;white-space:nowrap;
+  }
+  table.live td{border-bottom:1px solid var(--line);padding:9px 10px;vertical-align:top}
+  table.live tr:hover td{background:var(--teal-lt)}
+  table.live td.who{font-weight:600;cursor:pointer}
+  table.live td.who:hover{color:var(--teal)}
+  .pill{display:inline-block;padding:3px 9px;border-radius:99px;font-size:11.5px;font-weight:700;white-space:nowrap}
+  .pill.approved{background:var(--ok-bg);color:var(--ok)}
+  .pill.correction{background:var(--warn-bg);color:var(--warn)}
+  .pill.pending{background:var(--line);color:var(--muted)}
+  .tablewrap{overflow-x:auto}
+
   .placeholder{padding:52px 20px 60px;text-align:center;color:var(--muted)}
   .placeholder h2{color:var(--ink);margin-bottom:8px}
   .placeholder p{max-width:430px;margin:0 auto}
@@ -230,6 +249,8 @@
     </div>
   </div>
 
+  <button class="btn" id="liveBtn" hidden>Team responses</button>
+
   <div class="menu" id="menu">
     <button class="btn" id="menuBtn" aria-haspopup="true" aria-expanded="false">Export &amp; tools &#9662;</button>
     <div role="menu">
@@ -275,12 +296,15 @@ window.__LOCKUP__ = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcgAAALsCAYAA
   'use strict';
   var EMP = window.__EMPLOYEES__ || [];
   var LOCKUP = window.__LOCKUP__ || '';
+  var SYNC = window.__SYNC__ || null;   // {url, token} — absent until the Sheet is connected
   var KEY = 'sis_id_approval_v1';
   var state = load();
   var filter = 'all';
   var query = '';
   var currentId = null;
   var saveTimer = null;
+  var mode = 'card';                    // 'card' | 'live'
+  var live = { rows: null, loading: false, error: '', at: null };
 
   function load() {
     try {
@@ -372,6 +396,7 @@ window.__LOCKUP__ = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcgAAALsCAYAA
   ];
 
   function open(id) {
+    mode = 'card';
     currentId = id;
     if (history.replaceState) history.replaceState(null, '', '#' + id);
     render();
@@ -379,6 +404,7 @@ window.__LOCKUP__ = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcgAAALsCAYAA
   }
 
   function renderView() {
+    if (mode === 'live') return renderLive();
     var view = document.getElementById('view');
     var e = EMP.filter(function (x) { return x.id === currentId; })[0];
     if (!e) {
@@ -501,11 +527,167 @@ window.__LOCKUP__ = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcgAAALsCAYAA
     saved.className = 'saved'; saved.id = 'savedMsg'; saved.textContent = '✓ Saved on this device';
     actions.appendChild(prev); actions.appendChild(next); actions.appendChild(clear); actions.appendChild(saved);
 
+    // when a Sheet is connected, the response can be sent to HR instead of exported by hand
+    if (SYNC) {
+      var send = document.createElement('button');
+      send.className = 'btn primary'; send.type = 'button';
+      send.textContent = r.sent ? 'Send again to HR' : 'Send to HR';
+      send.onclick = function () {
+        commit(e.id, { remarks: document.getElementById('remarks').value });
+        submit(e, send);
+      };
+      actions.insertBefore(send, prev);
+      if (r.sent) {
+        var sentNote = document.createElement('span');
+        sentNote.className = 'saved show';
+        sentNote.textContent = '✓ Sent ' + new Date(r.sent).toLocaleString();
+        actions.appendChild(sentNote);
+      }
+    }
+
     right.appendChild(h2); right.appendChild(sub); right.appendChild(badge);
     right.appendChild(dlFacts); right.appendChild(lab); right.appendChild(field); right.appendChild(actions);
 
     grid.appendChild(left); grid.appendChild(right);
     view.appendChild(grid);
+  }
+
+  /* ---------- sending to the HR sheet ---------- */
+  // text/plain keeps this a "simple" request, so the browser skips the CORS
+  // preflight that Apps Script web apps cannot answer
+  function submit(e, btn) {
+    var r = resp(e.id);
+    if (!r.approved && !(r.remarks || '').trim()) return toast('Tick approve, or write what needs correcting, first');
+    var was = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Sending…';
+    fetch(SYNC.url, {
+      method: 'POST', mode: 'cors', redirect: 'follow',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        token: SYNC.token, id: e.id, name: e.name, designation: e.designation,
+        status: statusOf(e.id), approved: !!r.approved,
+        remarks: r.remarks || '', by: state.reviewer || r.by || ''
+      })
+    })
+      .then(function (res) { return res.json(); })
+      .then(function (d) {
+        btn.disabled = false;
+        if (!d || !d.ok) { btn.textContent = was; return toast('Not sent: ' + ((d && d.error) || 'unknown error')); }
+        state.responses[e.id].sent = new Date().toISOString();
+        persist(); render();
+        toast('Sent to HR');
+      })
+      .catch(function () {
+        btn.disabled = false; btn.textContent = was;
+        toast('Could not reach HR sheet — check your internet and try again');
+      });
+  }
+
+  function loadLive() {
+    if (!SYNC || live.loading) return;
+    live.loading = true; live.error = '';
+    renderLive();
+    fetch(SYNC.url + (SYNC.url.indexOf('?') > -1 ? '&' : '?') + 'token=' + encodeURIComponent(SYNC.token))
+      .then(function (res) { return res.json(); })
+      .then(function (d) {
+        live.loading = false;
+        if (!d || !d.ok) { live.error = (d && d.error) || 'unexpected reply'; }
+        else { live.rows = d.responses || []; live.at = new Date(); }
+        renderLive();
+      })
+      .catch(function () {
+        live.loading = false;
+        live.error = 'could not reach the sheet';
+        renderLive();
+      });
+  }
+
+  function renderLive() {
+    var view = document.getElementById('view');
+    var byId = {};
+    (live.rows || []).forEach(function (r) { byId[r.id] = r; });
+    var counts = { approved: 0, correction: 0, pending: 0 };
+    EMP.forEach(function (e) {
+      var r = byId[e.id];
+      counts[r ? (r.approved ? 'approved' : (r.remarks || '').trim() ? 'correction' : 'pending') : 'pending']++;
+    });
+
+    view.innerHTML = '';
+    var head = document.createElement('div');
+    head.className = 'live-head';
+    var h2 = document.createElement('h2');
+    h2.textContent = 'Team responses';
+    var refresh = document.createElement('button');
+    refresh.className = 'btn'; refresh.type = 'button';
+    refresh.textContent = live.loading ? 'Refreshing…' : 'Refresh';
+    refresh.disabled = live.loading;
+    refresh.onclick = loadLive;
+    var csv = document.createElement('button');
+    csv.className = 'btn'; csv.type = 'button'; csv.textContent = 'Download CSV';
+    csv.onclick = function () { exportLiveCsv(byId); };
+    var back = document.createElement('button');
+    back.className = 'btn'; back.type = 'button'; back.textContent = '← Back to cards';
+    back.onclick = function () { mode = 'card'; renderView(); };
+    head.appendChild(h2); head.appendChild(refresh); head.appendChild(csv); head.appendChild(back);
+    view.appendChild(head);
+
+    var note = document.createElement('p');
+    note.className = 'live-note';
+    note.textContent = live.error
+      ? 'Could not load: ' + live.error
+      : live.rows
+        ? counts.approved + ' approved · ' + counts.correction + ' correction' + (counts.correction === 1 ? '' : 's') +
+          ' · ' + counts.pending + ' not answered yet' + (live.at ? ' — updated ' + live.at.toLocaleTimeString() : '')
+        : 'Loading everyone’s answers from the HR sheet…';
+    view.appendChild(note);
+
+    if (!live.rows) return;
+
+    var wrap = document.createElement('div');
+    wrap.className = 'tablewrap';
+    var table = document.createElement('table');
+    table.className = 'live';
+    var thead = document.createElement('tr');
+    ['Employee', 'ID', 'Status', 'Remarks', 'Answered by', 'When'].forEach(function (h) {
+      var th = document.createElement('th'); th.textContent = h; thead.appendChild(th);
+    });
+    table.appendChild(thead);
+
+    EMP.forEach(function (e) {
+      var r = byId[e.id];
+      var st = r ? (r.approved ? 'approved' : (r.remarks || '').trim() ? 'correction' : 'pending') : 'pending';
+      var tr = document.createElement('tr');
+      var tdName = document.createElement('td');
+      tdName.className = 'who'; tdName.textContent = e.name;
+      tdName.title = 'Open this card';
+      tdName.onclick = function () { mode = 'card'; open(e.id); };
+      var tdId = document.createElement('td'); tdId.textContent = e.id;
+      var tdSt = document.createElement('td');
+      var pill = document.createElement('span');
+      pill.className = 'pill ' + st;
+      pill.textContent = st === 'approved' ? 'Approved' : st === 'correction' ? 'Correction' : 'No answer';
+      tdSt.appendChild(pill);
+      var tdRem = document.createElement('td'); tdRem.textContent = r ? r.remarks || '—' : '—';
+      var tdBy = document.createElement('td'); tdBy.textContent = r ? r.by || '—' : '—';
+      var tdAt = document.createElement('td');
+      tdAt.textContent = r && r.at ? new Date(r.at).toLocaleString() : '—';
+      [tdName, tdId, tdSt, tdRem, tdBy, tdAt].forEach(function (td) { tr.appendChild(td); });
+      table.appendChild(tr);
+    });
+    wrap.appendChild(table);
+    view.appendChild(wrap);
+  }
+
+  function exportLiveCsv(byId) {
+    var head = ['employee_id', 'name', 'designation', 'blood_group', 'office', 'status', 'approved', 'remarks', 'answered_by', 'answered_at'];
+    var body = EMP.map(function (e) {
+      var r = byId[e.id];
+      var st = r ? (r.approved ? 'approved' : (r.remarks || '').trim() ? 'correction' : 'pending') : 'pending';
+      return [e.id, e.name, e.designation, e.blood, e.office, st, r && r.approved ? 'Yes' : 'No',
+        r ? (r.remarks || '').replace(/\s*\n\s*/g, ' | ') : '', r ? r.by || '' : '', r ? r.at || '' : '']
+        .map(csvCell).join(',');
+    });
+    download('SIS-ID-team-responses-' + stamp() + '.csv', '﻿' + head.join(',') + '\n' + body.join('\n'), 'text/csv');
   }
 
   function commit(id, patch) { update(id, patch); }
@@ -677,6 +859,16 @@ window.__LOCKUP__ = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcgAAALsCAYAA
     if (this.files && this.files.length) importFiles(this.files);
     this.value = '';
   };
+
+  if (SYNC) {
+    var liveBtn = document.getElementById('liveBtn');
+    liveBtn.hidden = false;
+    liveBtn.onclick = function () {
+      mode = 'live';
+      renderView();
+      if (!live.rows) loadLive();
+    };
+  }
 
   var hash = decodeURIComponent(location.hash.replace('#', '')).toUpperCase();
   if (hash && EMP.some(function (e) { return e.id === hash; })) currentId = hash;
