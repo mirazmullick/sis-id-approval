@@ -4,4 +4,7 @@ node_modules/
 *.ppm
 Thumbs.db
 desktop.ini
-endpoint.json
+
+# endpoint.json is deliberately NOT ignored: the URL and token end up in the
+# public docs/index.html anyway, so hiding the input file would only make the
+# build unreproducible from a fresh clone.
