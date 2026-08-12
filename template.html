@@ -190,6 +190,36 @@
   .pill.pending{background:var(--line);color:var(--muted)}
   .tablewrap{overflow-x:auto}
 
+  /* ---------- new-entry form ---------- */
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;margin-bottom:18px}
+  .form-grid .wide{grid-column:1 / -1}
+  .form-grid label{display:block;font-weight:600;font-size:13.5px;margin-bottom:5px}
+  .form-grid .req{color:var(--gold-dk)}
+  .form-grid input, .form-grid select{
+    width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);
+  }
+  .form-grid input:focus, .form-grid select:focus{outline:2px solid var(--teal);outline-offset:1px}
+  .form-grid input.bad{border-color:#c0392b}
+  .dot.new{background:var(--teal)}
+  .pill.new{background:var(--teal-lt);color:var(--teal)}
+  .photo{display:flex;gap:16px;align-items:flex-start;margin-bottom:18px}
+  .photo-drop{
+    flex:1;border:1.5px dashed var(--line);border-radius:12px;padding:16px;
+    background:var(--bg);cursor:pointer;display:block;
+  }
+  .photo-drop:hover, .photo-drop.over{border-color:var(--teal);border-style:solid}
+  .photo-drop strong{display:block;font-size:14px;margin-bottom:3px}
+  .photo-drop span{font-size:12.5px;color:var(--muted)}
+  .photo-prev{
+    width:96px;height:124px;border-radius:8px;object-fit:cover;flex:none;
+    border:2px solid var(--teal);background:var(--panel);
+  }
+  .photo-meta{font-size:12.5px;color:var(--muted);margin-top:7px}
+  .photo-meta button{
+    border:0;background:none;color:var(--teal);font-weight:600;cursor:pointer;padding:0;font-size:12.5px;
+  }
+  @media (max-width:620px){ .form-grid{grid-template-columns:1fr} }
+
   .placeholder{padding:52px 20px 60px;text-align:center;color:var(--muted)}
   .placeholder h2{color:var(--ink);margin-bottom:8px}
   .placeholder p{max-width:430px;margin:0 auto}
@@ -248,6 +278,7 @@
     </div>
   </div>
 
+  <button class="btn" id="newBtn">+ New ID card</button>
   <button class="btn" id="liveBtn" hidden>Team responses</button>
 
   <div class="menu" id="menu">
@@ -276,6 +307,7 @@
       <button class="tab" role="tab" data-filter="pending" aria-selected="false">Pending <span data-count="pending"></span></button>
       <button class="tab" role="tab" data-filter="approved" aria-selected="false">Approved <span data-count="approved"></span></button>
       <button class="tab" role="tab" data-filter="correction" aria-selected="false">Corrections <span data-count="correction"></span></button>
+      <button class="tab" role="tab" data-filter="new" aria-selected="false">New <span data-count="new"></span></button>
     </div>
     <ul class="list" id="list"></ul>
   </aside>
@@ -307,12 +339,17 @@
   function load() {
     try {
       var raw = JSON.parse(localStorage.getItem(KEY) || '{}');
-      return { reviewer: raw.reviewer || '', responses: raw.responses || {} };
-    } catch (e) { return { reviewer: '', responses: {} }; }
+      return { reviewer: raw.reviewer || '', responses: raw.responses || {}, newEntries: raw.newEntries || [] };
+    } catch (e) { return { reviewer: '', responses: {}, newEntries: [] }; }
   }
   function persist() {
     try { localStorage.setItem(KEY, JSON.stringify(state)); }
-    catch (e) { toast('Could not save on this device (storage blocked)'); }
+    catch (e) {
+      var heavy = state.newEntries.some(function (n) { return n.photo; });
+      toast(heavy
+        ? 'This device is out of space — send the request to HR, then remove the photo'
+        : 'Could not save on this device (storage blocked)');
+    }
   }
   function resp(id) {
     return state.responses[id] || { approved: false, remarks: '', by: '', at: '' };
@@ -329,7 +366,7 @@
 
   /* ---------- header stats ---------- */
   function renderStats() {
-    var counts = { all: EMP.length, pending: 0, approved: 0, correction: 0 };
+    var counts = { all: EMP.length + state.newEntries.length, pending: 0, approved: 0, correction: 0, 'new': state.newEntries.length };
     EMP.forEach(function (e) { counts[statusOf(e.id)]++; });
     var done = counts.approved + counts.correction;
     document.getElementById('barFill').style.width = (EMP.length ? done / EMP.length * 100 : 0) + '%';
@@ -343,15 +380,28 @@
   }
 
   /* ---------- sidebar ---------- */
-  function matches(e) {
-    if (filter !== 'all' && statusOf(e.id) !== filter) return false;
+  // the sidebar mixes the 50 printed cards with any manually added requests
+  function listRows() {
+    var rows = EMP.map(function (e) {
+      return { kind: 'card', key: e.id, name: e.name, sub: e.id + ' · ' + e.office, status: statusOf(e.id), emp: e };
+    });
+    state.newEntries.forEach(function (n) {
+      rows.push({
+        kind: 'new', key: n.ref, name: n.name,
+        sub: (n.empId || 'new entry') + ' · ' + n.office, status: 'new', entry: n
+      });
+    });
+    return rows;
+  }
+  function matches(r) {
+    if (filter !== 'all' && r.status !== filter) return false;
     if (!query) return true;
     var q = query.toLowerCase();
-    return (e.name + ' ' + e.id + ' ' + e.designation + ' ' + e.office).toLowerCase().indexOf(q) > -1;
+    return (r.name + ' ' + r.sub + ' ' + (r.emp ? r.emp.designation : r.entry.designation)).toLowerCase().indexOf(q) > -1;
   }
   function renderList() {
     var ul = document.getElementById('list');
-    var rows = EMP.filter(matches);
+    var rows = listRows().filter(matches);
     ul.innerHTML = '';
     if (!rows.length) {
       var li = document.createElement('li');
@@ -360,22 +410,21 @@
       ul.appendChild(li);
       return;
     }
-    rows.forEach(function (e) {
-      var st = statusOf(e.id);
+    rows.forEach(function (r) {
       var li = document.createElement('li');
       var b = document.createElement('button');
       b.type = 'button';
-      b.setAttribute('aria-current', e.id === currentId ? 'true' : 'false');
-      b.onclick = function () { open(e.id); };
+      b.setAttribute('aria-current', r.key === currentId ? 'true' : 'false');
+      b.onclick = function () { r.kind === 'new' ? openNew(r.entry) : open(r.key); };
       var dot = document.createElement('span');
-      dot.className = 'dot ' + st;
-      dot.title = label(st);
+      dot.className = 'dot ' + r.status;
+      dot.title = r.status === 'new' ? 'New ID card request' : label(r.status);
       var txt = document.createElement('span');
       txt.className = 'li-txt';
       var strong = document.createElement('strong');
-      strong.textContent = e.name;
+      strong.textContent = r.name;
       var span = document.createElement('span');
-      span.textContent = e.id + ' · ' + e.office;
+      span.textContent = r.sub;
       txt.appendChild(strong); txt.appendChild(span);
       b.appendChild(dot); b.appendChild(txt);
       li.appendChild(b);
@@ -401,7 +450,276 @@
     if (window.innerWidth <= 900) document.getElementById('view').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
+  /* ---------- manually added ID card requests ---------- */
+  var BLOODS = ['A+ve', 'A-ve', 'B+ve', 'B-ve', 'AB+ve', 'AB-ve', 'O+ve', 'O-ve'];
+  var OFFICES = ['Dhaka', 'Sylhet', 'Moulvibazar', 'Habiganj', 'Other'];
+  var draft = null;
+
+  function openNew(entry) {
+    mode = 'new';
+    currentId = entry ? entry.ref : null;
+    draft = entry
+      ? JSON.parse(JSON.stringify(entry))
+      : { ref: 'NEW-' + Math.random().toString(36).slice(2, 8).toUpperCase(),
+          name: '', empId: '', designation: '', blood: '', office: 'Dhaka',
+          remarks: '', by: state.reviewer || '', at: '', sent: '' };
+    renderView();
+  }
+
+  function renderNew() {
+    var view = document.getElementById('view');
+    var existing = state.newEntries.filter(function (n) { return n.ref === draft.ref; })[0];
+    if (existing) draft = JSON.parse(JSON.stringify(existing));   // stay in step with what was saved
+    view.innerHTML = '';
+
+    var h2 = document.createElement('h2');
+    h2.textContent = existing ? 'New ID card request' : 'Request a new ID card';
+    var sub = document.createElement('p');
+    sub.className = 'sub';
+    sub.textContent = existing
+      ? 'Ref ' + draft.ref + (draft.at ? ' · saved ' + new Date(draft.at).toLocaleString() : '')
+      : 'For someone who has joined since the cards were printed, or whose details changed enough to need a fresh card.';
+    view.appendChild(h2); view.appendChild(sub);
+
+    var grid = document.createElement('div');
+    grid.className = 'form-grid';
+
+    function field(key, labelText, opts) {
+      opts = opts || {};
+      var wrap = document.createElement('div');
+      if (opts.wide) wrap.className = 'wide';
+      var lab = document.createElement('label');
+      lab.setAttribute('for', 'f_' + key);
+      lab.innerHTML = labelText + (opts.required ? ' <span class="req">*</span>' : '');
+      var input;
+      if (opts.choices) {
+        input = document.createElement('select');
+        if (!opts.required) input.appendChild(new Option('—', ''));
+        opts.choices.forEach(function (c) { input.appendChild(new Option(c, c)); });
+      } else {
+        input = document.createElement('input');
+        input.type = 'text';
+        if (opts.placeholder) input.placeholder = opts.placeholder;
+      }
+      input.id = 'f_' + key;
+      input.value = draft[key] || '';
+      input.oninput = input.onchange = function () { draft[key] = input.value; };
+      wrap.appendChild(lab); wrap.appendChild(input);
+      grid.appendChild(wrap);
+      return input;
+    }
+
+    field('name', 'Full name (as it should be printed)', { required: true, wide: true });
+    field('empId', 'Employee ID', { placeholder: 'e.g. DAC553 — leave blank if not issued yet' });
+    field('designation', 'Designation', { required: true });
+    field('blood', 'Blood group', { choices: BLOODS });
+    field('office', 'Office', { choices: OFFICES, required: true });
+    field('by', 'Submitted by', { placeholder: 'Your name', wide: true });
+    view.appendChild(grid);
+
+    var fieldWrap = document.createElement('div');
+    fieldWrap.className = 'field';
+    var rl = document.createElement('label');
+    rl.setAttribute('for', 'f_remarks');
+    rl.innerHTML = 'Notes for HR <span class="hint">&mdash; anything else that should be on the card</span>';
+    var ta = document.createElement('textarea');
+    ta.id = 'f_remarks';
+    ta.value = draft.remarks || '';
+    ta.placeholder = 'Example: photo handed to HR on 12 August. Branch office is Moulvibazar.';
+    ta.oninput = function () { draft.remarks = ta.value; };
+    fieldWrap.appendChild(rl); fieldWrap.appendChild(ta);
+    view.appendChild(fieldWrap);
+
+    view.appendChild(photoField());
+
+    var actions = document.createElement('div');
+    actions.className = 'actions';
+
+    var save = document.createElement('button');
+    save.className = 'btn primary'; save.type = 'button';
+    save.textContent = existing ? 'Save changes' : 'Save request';
+    save.onclick = function () { saveNew(); };
+    actions.appendChild(save);
+
+    if (SYNC) {
+      var send = document.createElement('button');
+      send.className = 'btn'; send.type = 'button';
+      send.textContent = draft.sent ? 'Send again to HR' : 'Send to HR';
+      send.onclick = function () { if (saveNew(true)) submitNew(send); };
+      actions.appendChild(send);
+    }
+
+    if (existing) {
+      var del = document.createElement('button');
+      del.className = 'btn'; del.type = 'button'; del.textContent = 'Delete request';
+      del.onclick = function () {
+        if (!confirm('Delete this request?')) return;
+        state.newEntries = state.newEntries.filter(function (n) { return n.ref !== draft.ref; });
+        persist(); mode = 'card'; currentId = null; render();
+        toast('Request deleted');
+      };
+      actions.appendChild(del);
+    }
+
+    var back = document.createElement('button');
+    back.className = 'btn'; back.type = 'button'; back.textContent = '← Back to cards';
+    back.onclick = function () { mode = 'card'; currentId = null; render(); };
+    actions.appendChild(back);
+    view.appendChild(actions);
+  }
+
+  /* ---------- passport photo upload ---------- */
+  var PHOTO_MAX = 1500;     // long edge, px — ~5x the printed size, so plenty of headroom
+  var PHOTO_QUALITY = 0.88;
+
+  // Any size can be uploaded — a 12 MP phone photo is fine. It is resized here
+  // rather than rejected, which keeps the POST small and localStorage under its
+  // ~5 MB ceiling while staying well above what an ID card needs in print.
+  function shrinkPhoto(file, cb) {
+    if (!/^image\//.test(file.type)) return cb('That file is not an image');
+    var reader = new FileReader();
+    reader.onerror = function () { cb('Could not read that file'); };
+    reader.onload = function () {
+      var img = new Image();
+      img.onerror = function () { cb('That image could not be opened'); };
+      img.onload = function () {
+        var scale = Math.min(1, PHOTO_MAX / Math.max(img.width, img.height));
+        var w = Math.round(img.width * scale), h = Math.round(img.height * scale);
+        var canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        try {
+          cb(null, { data: canvas.toDataURL('image/jpeg', PHOTO_QUALITY), w: w, h: h, name: file.name });
+        } catch (err) { cb('That image could not be processed'); }
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function photoField() {
+    var wrap = document.createElement('div');
+    wrap.className = 'photo';
+
+    var drop = document.createElement('label');
+    drop.className = 'photo-drop';
+    var input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.hidden = true;
+
+    function paint() {
+      wrap.innerHTML = '';
+      if (draft.photo) {
+        var prev = document.createElement('img');
+        prev.className = 'photo-prev';
+        prev.src = draft.photo;
+        prev.alt = 'Uploaded photo';
+        wrap.appendChild(prev);
+      }
+      var col = document.createElement('div');
+      col.style.flex = '1';
+      drop.innerHTML = '';
+      var strong = document.createElement('strong');
+      strong.textContent = draft.photo ? 'Replace photo' : 'Upload a passport photo';
+      var span = document.createElement('span');
+      span.textContent = draft.photo
+        ? 'Click to choose a different picture, or drag one here.'
+        : 'Click to choose a picture, or drag one here. Any size — a full phone photo is fine, it is resized for you.';
+      drop.appendChild(strong); drop.appendChild(span); drop.appendChild(input);
+      col.appendChild(drop);
+      if (draft.photo) {
+        var meta = document.createElement('div');
+        meta.className = 'photo-meta';
+        meta.textContent = (draft.photoName || 'photo') + ' · ' + Math.round(draft.photo.length * 0.75 / 1024) + ' KB  ';
+        var rm = document.createElement('button');
+        rm.type = 'button'; rm.textContent = 'Remove';
+        rm.onclick = function (ev) {
+          ev.preventDefault();
+          delete draft.photo; delete draft.photoName;
+          paint();
+        };
+        meta.appendChild(rm);
+        col.appendChild(meta);
+      }
+      wrap.appendChild(col);
+    }
+
+    function take(file) {
+      if (!file) return;
+      shrinkPhoto(file, function (err, out) {
+        if (err) return toast(err);
+        draft.photo = out.data;
+        draft.photoName = out.name;
+        paint();
+        toast('Photo attached (' + out.w + '×' + out.h + ')');
+      });
+    }
+
+    input.onchange = function () { take(this.files && this.files[0]); this.value = ''; };
+    drop.addEventListener('dragover', function (ev) { ev.preventDefault(); drop.classList.add('over'); });
+    drop.addEventListener('dragleave', function () { drop.classList.remove('over'); });
+    drop.addEventListener('drop', function (ev) {
+      ev.preventDefault(); drop.classList.remove('over');
+      take(ev.dataTransfer.files && ev.dataTransfer.files[0]);
+    });
+
+    paint();
+    return wrap;
+  }
+
+  function saveNew(quiet) {
+    var missing = ['name', 'designation', 'office'].filter(function (k) { return !(draft[k] || '').trim(); });
+    if (missing.length) {
+      missing.forEach(function (k) { var el = document.getElementById('f_' + k); if (el) el.className = 'bad'; });
+      toast('Fill in ' + missing.join(', ') + ' first');
+      return false;
+    }
+    var dupe = EMP.filter(function (e) { return draft.empId && e.id.toUpperCase() === draft.empId.trim().toUpperCase(); })[0];
+    if (dupe) { toast(draft.empId + ' already has a card (' + dupe.name + ') — open it instead'); return false; }
+
+    draft.at = new Date().toISOString();
+    draft.by = (draft.by || state.reviewer || '').trim();
+    var at = state.newEntries.map(function (n) { return n.ref; }).indexOf(draft.ref);
+    if (at >= 0) state.newEntries[at] = JSON.parse(JSON.stringify(draft));
+    else state.newEntries.push(JSON.parse(JSON.stringify(draft)));
+    persist();
+    currentId = draft.ref;
+    render();
+    if (!quiet) toast('Request saved');
+    return true;
+  }
+
+  function submitNew(btn) {
+    var was = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Sending…';
+    fetch(SYNC.url, {
+      method: 'POST', mode: 'cors', redirect: 'follow',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        token: SYNC.token, kind: 'new', ref: draft.ref,
+        name: draft.name, id: draft.empId || draft.ref, empId: draft.empId || '', designation: draft.designation,
+        blood: draft.blood, office: draft.office, remarks: draft.remarks || '',
+        by: draft.by || state.reviewer || '',
+        photo: draft.photo || '', photoName: draft.photoName || ''
+      })
+    })
+      .then(function (res) { return res.json(); })
+      .then(function (d) {
+        btn.disabled = false;
+        if (!d || !d.ok) { btn.textContent = was; return toast('Not sent: ' + ((d && d.error) || 'unknown error')); }
+        draft.sent = new Date().toISOString();
+        saveNew(true);
+        toast('Sent to HR');
+      })
+      .catch(function () {
+        btn.disabled = false; btn.textContent = was;
+        toast('Could not reach HR sheet — check your internet and try again');
+      });
+  }
+
   function renderView() {
+    if (mode === 'new') return renderNew();
     if (mode === 'live') return renderLive();
     var view = document.getElementById('view');
     var e = EMP.filter(function (x) { return x.id === currentId; })[0];
@@ -590,7 +908,7 @@
       .then(function (d) {
         live.loading = false;
         if (!d || !d.ok) { live.error = (d && d.error) || 'unexpected reply'; }
-        else { live.rows = d.responses || []; live.at = new Date(); }
+        else { live.rows = d.responses || []; live.news = d.newRequests || []; live.at = new Date(); }
         renderLive();
       })
       .catch(function () {
@@ -674,6 +992,46 @@
     });
     wrap.appendChild(table);
     view.appendChild(wrap);
+
+    if ((live.news || []).length) {
+      var h3 = document.createElement('h2');
+      h3.style.cssText = 'font-size:18px;margin:28px 0 4px';
+      h3.textContent = 'New ID cards requested (' + live.news.length + ')';
+      var n3 = document.createElement('p');
+      n3.className = 'live-note';
+      n3.textContent = 'Added by hand — these are not on the printed sheet yet.';
+      view.appendChild(h3); view.appendChild(n3);
+
+      var nwrap = document.createElement('div');
+      nwrap.className = 'tablewrap';
+      var nt = document.createElement('table');
+      nt.className = 'live';
+      var nh = document.createElement('tr');
+      ['Name', 'Employee ID', 'Designation', 'Blood', 'Office', 'Photo', 'Notes', 'Requested by', 'When'].forEach(function (h) {
+        var th = document.createElement('th'); th.textContent = h; nh.appendChild(th);
+      });
+      nt.appendChild(nh);
+      live.news.forEach(function (n) {
+        var tr = document.createElement('tr');
+        [n.name, n.empId || '—', n.designation, n.blood || '—', n.office].forEach(function (v) {
+          var td = document.createElement('td'); td.textContent = v; tr.appendChild(td);
+        });
+        var tdPhoto = document.createElement('td');
+        if (n.photo && /^https?:/.test(n.photo)) {
+          var a = document.createElement('a');
+          a.href = n.photo; a.target = '_blank'; a.rel = 'noopener';
+          a.textContent = 'Open'; a.style.color = 'var(--teal)'; a.style.fontWeight = '600';
+          tdPhoto.appendChild(a);
+        } else tdPhoto.textContent = n.photo ? 'attached' : '—';
+        tr.appendChild(tdPhoto);
+        [n.remarks || '—', n.by || '—', n.at ? new Date(n.at).toLocaleString() : '—'].forEach(function (v) {
+          var td = document.createElement('td'); td.textContent = v; tr.appendChild(td);
+        });
+        nt.appendChild(tr);
+      });
+      nwrap.appendChild(nt);
+      view.appendChild(nwrap);
+    }
   }
 
   function exportLiveCsv(byId) {
@@ -725,7 +1083,7 @@
 
   /* ---------- export / import ---------- */
   function rows() {
-    return EMP.map(function (e) {
+    var out = EMP.map(function (e) {
       var r = resp(e.id);
       return {
         employee_id: e.id, name: e.name, designation: e.designation,
@@ -735,6 +1093,16 @@
         reviewed_by: r.by || '', reviewed_at: r.at || ''
       };
     });
+    state.newEntries.forEach(function (n) {
+      out.push({
+        employee_id: n.empId || n.ref, name: n.name, designation: n.designation,
+        blood_group: n.blood, office: n.office,
+        status: 'new card requested', approved: 'No',
+        remarks: (n.remarks || '').replace(/\s*\n\s*/g, ' | ').trim(),
+        reviewed_by: n.by || '', reviewed_at: n.at || ''
+      });
+    });
+    return out;
   }
   function download(name, text, mime) {
     var blob = new Blob([text], { type: mime + ';charset=utf-8' });
@@ -757,7 +1125,8 @@
   }
   function exportJson() {
     download('SIS-ID-approvals-' + (state.reviewer ? state.reviewer.replace(/[^\w]+/g, '-') + '-' : '') + stamp() + '.json',
-      JSON.stringify({ app: 'sis_id_approval_v1', reviewer: state.reviewer, exported: new Date().toISOString(), responses: state.responses }, null, 2),
+      JSON.stringify({ app: 'sis_id_approval_v1', reviewer: state.reviewer, exported: new Date().toISOString(),
+        responses: state.responses, newEntries: state.newEntries }, null, 2),
       'application/json');
   }
   function copy(text, msg) {
@@ -799,6 +1168,11 @@
           Object.keys(rs).forEach(function (id) {
             var incoming = rs[id], have = state.responses[id];
             if (!have || (incoming.at || '') >= (have.at || '')) { state.responses[id] = incoming; merged++; }
+          });
+          (d.newEntries || []).forEach(function (n) {
+            var at = state.newEntries.map(function (x) { return x.ref; }).indexOf(n.ref);
+            if (at < 0) { state.newEntries.push(n); merged++; }
+            else if ((n.at || '') > (state.newEntries[at].at || '')) { state.newEntries[at] = n; merged++; }
           });
         } catch (e) { toast('Could not read ' + f.name); }
         if (!--pending) { persist(); render(); toast(merged + ' response(s) merged'); }
@@ -858,13 +1232,15 @@
     this.value = '';
   };
 
+  document.getElementById('newBtn').onclick = function () { openNew(null); };
+
   if (SYNC) {
     var liveBtn = document.getElementById('liveBtn');
     liveBtn.hidden = false;
     liveBtn.onclick = function () {
       mode = 'live';
       renderView();
-      if (!live.rows) loadLive();
+      loadLive();   // always refetch: anything sent since the last look should show
     };
   }
 

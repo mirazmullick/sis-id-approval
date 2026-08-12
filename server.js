@@ -10,7 +10,7 @@ const TYPES = { '.html': 'text/html; charset=utf-8', '.jpg': 'image/jpeg', '.jso
 
 // Stands in for the Google Apps Script web app so the sync flow can be tested
 // locally. Same request/response shape as apps-script/Code.gs.
-const mock = { rows: {} };
+const mock = { rows: {}, news: {} };
 function mockSync(req, res) {
   const url = new URL(req.url, 'http://x');
   const reply = obj => {
@@ -19,7 +19,7 @@ function mockSync(req, res) {
   };
   if (req.method === 'GET') {
     if (url.searchParams.get('token') !== 'mock-token') return reply({ ok: false, error: 'bad token' });
-    return reply({ ok: true, responses: Object.values(mock.rows) });
+    return reply({ ok: true, responses: Object.values(mock.rows), newRequests: Object.values(mock.news) });
   }
   let body = '';
   req.on('data', c => (body += c));
@@ -28,6 +28,12 @@ function mockSync(req, res) {
       const d = JSON.parse(body);
       if (d.token !== 'mock-token') return reply({ ok: false, error: 'bad token' });
       if (!d.id) return reply({ ok: false, error: 'missing employee id' });
+      if (d.kind === 'new') {
+        mock.news[d.ref] = { at: new Date().toISOString(), ref: d.ref, empId: d.empId || '', name: d.name,
+          designation: d.designation, blood: d.blood, office: d.office, remarks: d.remarks || '', by: d.by || '',
+          photo: d.photo ? 'mock://drive/' + encodeURIComponent(d.photoName || 'photo.jpg') + '#' + d.photo.length : '' };
+        return reply({ ok: true });
+      }
       mock.rows[d.id] = { at: new Date().toISOString(), id: d.id, name: d.name, designation: d.designation,
         status: d.status, approved: !!d.approved, remarks: d.remarks || '', by: d.by || '' };
       reply({ ok: true });
