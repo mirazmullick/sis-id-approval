@@ -22,9 +22,9 @@
     "row": 0,
     "col": 1,
     "crop": {
-      "x": 324,
+      "x": 322,
       "y": 121,
-      "w": 226,
+      "w": 228,
       "h": 346
     },
     "file": "cards/SYL001.jpg"
@@ -142,9 +142,9 @@
     "row": 1,
     "col": 1,
     "crop": {
-      "x": 324,
+      "x": 322,
       "y": 516,
-      "w": 226,
+      "w": 228,
       "h": 346
     },
     "file": "cards/DAC519.jpg"
@@ -262,9 +262,9 @@
     "row": 2,
     "col": 1,
     "crop": {
-      "x": 324,
+      "x": 322,
       "y": 911,
-      "w": 226,
+      "w": 228,
       "h": 346
     },
     "file": "cards/DAC517.jpg"
@@ -382,9 +382,9 @@
     "row": 3,
     "col": 1,
     "crop": {
-      "x": 324,
+      "x": 322,
       "y": 1306,
-      "w": 226,
+      "w": 228,
       "h": 346
     },
     "file": "cards/DAC502.jpg"
@@ -502,9 +502,9 @@
     "row": 4,
     "col": 1,
     "crop": {
-      "x": 324,
+      "x": 322,
       "y": 1701,
-      "w": 226,
+      "w": 228,
       "h": 346
     },
     "file": "cards/SYL052.jpg"
@@ -610,7 +610,7 @@
       "x": 86,
       "y": 2096,
       "w": 224,
-      "h": 346
+      "h": 345
     },
     "file": "cards/DAC507.jpg"
   },
@@ -622,10 +622,10 @@
     "row": 5,
     "col": 1,
     "crop": {
-      "x": 324,
+      "x": 322,
       "y": 2096,
-      "w": 226,
-      "h": 346
+      "w": 228,
+      "h": 345
     },
     "file": "cards/DAC516.jpg"
   },
@@ -640,7 +640,7 @@
       "x": 562,
       "y": 2096,
       "w": 226,
-      "h": 346
+      "h": 345
     },
     "file": "cards/DAC534.jpg"
   },
@@ -655,7 +655,7 @@
       "x": 800,
       "y": 2096,
       "w": 225,
-      "h": 346
+      "h": 345
     },
     "file": "cards/SYL025.jpg"
   },
@@ -670,7 +670,7 @@
       "x": 1039,
       "y": 2096,
       "w": 224,
-      "h": 346
+      "h": 345
     },
     "file": "cards/DAC552.jpg"
   },
@@ -685,7 +685,7 @@
       "x": 1277,
       "y": 2096,
       "w": 224,
-      "h": 346
+      "h": 345
     },
     "file": "cards/DAC545.jpg"
   },
@@ -700,7 +700,7 @@
       "x": 1513,
       "y": 2096,
       "w": 226,
-      "h": 346
+      "h": 345
     },
     "file": "cards/DAC648.jpg"
   },
@@ -715,7 +715,7 @@
       "x": 1750,
       "y": 2096,
       "w": 227,
-      "h": 346
+      "h": 345
     },
     "file": "cards/DAC551.jpg"
   },
@@ -742,9 +742,9 @@
     "row": 6,
     "col": 1,
     "crop": {
-      "x": 324,
+      "x": 322,
       "y": 2469,
-      "w": 226,
+      "w": 228,
       "h": 351
     },
     "file": "cards/SYL028.jpg"
@@ -838,5 +838,155 @@
       "h": 351
     },
     "file": "cards/SYL040.jpg"
+  },
+  {
+    "empId": "SYL003",
+    "name": "MD FOZOL AHMED",
+    "designation": "Asst. Manager Reservation & Ticketing",
+    "blood": "B +ve",
+    "row": 7,
+    "col": 0,
+    "crop": {
+      "x": 86,
+      "y": 2842,
+      "w": 224,
+      "h": 349
+    },
+    "file": "cards/SYL003.jpg"
+  },
+  {
+    "empId": "DAC524",
+    "name": "MD ASIF IQUBAL",
+    "designation": "Manager - Holidays",
+    "blood": "B +ve",
+    "row": 7,
+    "col": 1,
+    "crop": {
+      "x": 322,
+      "y": 2842,
+      "w": 228,
+      "h": 349
+    },
+    "file": "cards/DAC524.jpg"
+  },
+  {
+    "empId": "SYL050",
+    "name": "MD ABDULLAH AL MAMUN",
+    "designation": "Executive - Hajj & Umrah",
+    "blood": "AB +ve",
+    "row": 7,
+    "col": 2,
+    "crop": {
+      "x": 562,
+      "y": 2842,
+      "w": 226,
+      "h": 349
+    },
+    "file": "cards/SYL050.jpg"
+  },
+  {
+    "empId": "DAC549",
+    "name": "MD SHOAIB AHMED",
+    "designation": "Office Assistant HR & Administration",
+    "blood": "A +ve",
+    "row": 7,
+    "col": 3,
+    "crop": {
+      "x": 800,
+      "y": 2842,
+      "w": 225,
+      "h": 349
+    },
+    "file": "cards/DAC549.jpg"
+  },
+  {
+    "empId": "DAC501",
+    "name": "KAMRUL HASSAN CHOKDER",
+    "designation": "Sr. Executive Visa Management Suma Overseas RL-714",
+    "blood": "AB +ve",
+    "row": 7,
+    "col": 4,
+    "crop": {
+      "x": 1039,
+      "y": 2842,
+      "w": 224,
+      "h": 349
+    },
+    "file": "cards/DAC501.jpg"
+  },
+  {
+    "empId": "DAC525",
+    "name": "ABDUR RAHMAN",
+    "designation": "Office Assistant HR & Administration",
+    "blood": "A +ve",
+    "row": 7,
+    "col": 5,
+    "crop": {
+      "x": 1277,
+      "y": 2842,
+      "w": 224,
+      "h": 349
+    },
+    "file": "cards/DAC525.jpg"
+  },
+  {
+    "empId": "DAC521",
+    "name": "SHAKIL ISLAM",
+    "designation": "Office Assistant HR & Administration",
+    "blood": "A +ve",
+    "row": 7,
+    "col": 6,
+    "crop": {
+      "x": 1513,
+      "y": 2842,
+      "w": 226,
+      "h": 349
+    },
+    "file": "cards/DAC521.jpg"
+  },
+  {
+    "empId": "SYL038",
+    "name": "MD RASEL MIAH",
+    "designation": "Manager Hajj & Umrah",
+    "blood": "O +ve",
+    "row": 7,
+    "col": 7,
+    "crop": {
+      "x": 1750,
+      "y": 2842,
+      "w": 227,
+      "h": 349
+    },
+    "file": "cards/SYL038.jpg"
+  },
+  {
+    "empId": "DAC523",
+    "name": "MD PARVEZ",
+    "designation": "Office Assistant HR & Administration",
+    "blood": "AB -ve",
+    "row": 8,
+    "col": 0,
+    "crop": {
+      "x": 86,
+      "y": 3211,
+      "w": 224,
+      "h": 349
+    },
+    "file": "cards/DAC523.jpg"
+  },
+  {
+    "empId": "SYL018",
+    "name": "HAFIJ JOYNAL ABEDEEN",
+    "designation": "Executive Hajj & Umrah",
+    "blood": "B +ve",
+    "row": 8,
+    "col": 1,
+    "crop": {
+      "x": 322,
+      "y": 3211,
+      "w": 228,
+      "h": 349
+    },
+    "file": "cards/SYL018.jpg"
   }
 ]
