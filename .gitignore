@@ -5,6 +5,11 @@ node_modules/
 Thumbs.db
 desktop.ini
 
+# The master roster is generated on demand by export_master_xlsx.js. Keeping it
+# out means the repo does not carry a second, staler copy of everyone's details
+# alongside docs/ — regenerate it instead of committing it.
+*.xlsx
+
 # endpoint.json is deliberately NOT ignored: the URL and token end up in the
 # public docs/index.html anyway, so hiding the input file would only make the
 # build unreproducible from a fresh clone.

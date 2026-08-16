@@ -200,6 +200,9 @@
   }
   .form-grid input:focus, .form-grid select:focus{outline:2px solid var(--teal);outline-offset:1px}
   .form-grid input.bad{border-color:#c0392b}
+  /* Reviewed by is required before anything reaches HR — without it the sheet's
+     "Submitted by" column comes back empty and an approval names nobody */
+  .who input.bad{border-color:#c0392b;background:#fff5f4}
   .dot.new{background:var(--teal)}
   .pill.new{background:var(--teal-lt);color:var(--teal)}
   .photo{display:flex;gap:16px;align-items:flex-start;margin-bottom:18px}
@@ -267,7 +270,7 @@
 
   <div class="who">
     <label for="reviewer">Reviewed by</label>
-    <input id="reviewer" placeholder="Your name" autocomplete="name">
+    <input id="reviewer" placeholder="Your name (required)" autocomplete="name">
   </div>
 
   <div class="stats">
@@ -550,7 +553,7 @@
       var send = document.createElement('button');
       send.className = 'btn'; send.type = 'button';
       send.textContent = draft.sent ? 'Send again to HR' : 'Send to HR';
-      send.onclick = function () { if (saveNew(true)) submitNew(send); };
+      send.onclick = function () { if (requireReviewer() && saveNew(true)) submitNew(send); };
       actions.appendChild(send);
     }
 
@@ -865,10 +868,25 @@
   }
 
   /* ---------- sending to the HR sheet ---------- */
+  // Nothing goes to HR anonymously. An approval with no name against it is not a
+  // record of anything, so the send is blocked until Reviewed by is filled in.
+  function requireReviewer() {
+    if ((state.reviewer || '').trim()) return true;
+    var el = document.getElementById('reviewer');
+    if (el) {
+      el.className = 'bad';
+      el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      el.focus();
+    }
+    toast('Type your name in "Reviewed by" at the top first');
+    return false;
+  }
+
   // text/plain keeps this a "simple" request, so the browser skips the CORS
   // preflight that Apps Script web apps cannot answer
   function submit(e, btn) {
     var r = resp(e.id);
+    if (!requireReviewer()) return;
     if (!r.approved && !(r.remarks || '').trim()) return toast('Tick approve, or write what needs correcting, first');
     var was = btn.textContent;
     btn.disabled = true; btn.textContent = 'Sending…';
@@ -1274,7 +1292,11 @@
   /* ---------- wiring ---------- */
   var reviewer = document.getElementById('reviewer');
   reviewer.value = state.reviewer;
-  reviewer.oninput = function () { state.reviewer = reviewer.value.trim(); persist(); };
+  reviewer.oninput = function () {
+    state.reviewer = reviewer.value.trim();
+    if (state.reviewer) reviewer.className = '';   // clear the "required" highlight
+    persist();
+  };
 
   document.getElementById('q').oninput = function () { query = this.value.trim(); renderList(); };
 

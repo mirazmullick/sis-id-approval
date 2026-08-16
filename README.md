@@ -60,9 +60,28 @@ Direct link to one person's card: append their ID to the file path, e.g. `…ID-
 Two things to be aware of before you send the link out:
 
 - **There is no login.** Anyone with the link can approve any card, and the *Reviewed by* name
-  is simply typed in. For an internal 66-person office that is usually fine, but it is an
+  is simply typed in. It is required before **Send to HR** or a new-card request will go through,
+  so every row in the sheet carries a name, but for an internal 66-person office that is an
   honour-system record, not a signature.
 - **The link is public.** Anyone who has it sees all 66 photos, IDs and blood groups.
+
+## The employee master list as a spreadsheet
+
+`Suma-Employee-ID-Master.xlsx` is the roster exactly as it is printed on the cards — no responses,
+no approvals, just the data. Hand it to HR, the printer, or anyone who wants the list in Excel.
+
+```bash
+node export_master_xlsx.js            # -> Suma-Employee-ID-Master.xlsx
+node export_master_xlsx.js other.xlsx # or write it somewhere else
+```
+
+| Tab | What's in it |
+| --- | --- |
+| Summary | Head count, split by office and by blood group, and any card with an empty photo frame |
+| Employees | One row per person: ID, name, designation, blood group, office, whether the card carries a photo, its position on the artboard, and the card image filename |
+
+Regenerate it after every artwork change — it reads `employees.json`, so run it after
+`extract_employees.js`.
 
 ## The working file is Excel
 
@@ -104,6 +123,17 @@ node build.js && git add -A && git commit -m "connect HR sheet" && git push
 
 The Sheet grows two tabs by itself: **Responses** (one row per employee, latest answer) and
 **Log** (every submission, as an audit trail).
+
+### Getting told when something arrives
+
+Nothing emails you on its own. Submissions land in the Sheet silently, so without this you only
+find out by opening *Team responses* or the Sheet. Turn on Google's own alert once:
+
+1. Open the Sheet → **Tools → Notification settings → Edit notifications**
+2. Choose **Any changes are made**, and **Email — daily digest** (or *right away* if you would
+   rather know within the hour), then **Save**.
+
+The email only says the Sheet changed, not what changed, so treat it as a nudge to go and look.
 
 Worth knowing: the endpoint URL and token are inside the public page, so anyone who views source
 could post a row. Junk rows would be visible and obviously wrong, and the Log tab shows
@@ -172,7 +202,8 @@ SIS-Employee-ID-Approval.html   the offline single-file build
 employees.json                  66 records + crop boxes (source of truth for the build)
 cards/                          66 individual card JPEGs, ~493 × 762 px
 brand/                          suma mark + full lockup, cut from the artwork, transparent PNG
-extract_employees.js            PDF -> employees.json (grid detection + text layer)
+extract_employees.js            PDF -> employees.json (grid detection + text layer + photo check)
+export_master_xlsx.js           employees.json -> Suma-Employee-ID-Master.xlsx
 render_cards.js                 PDF -> cards/
 build.js                        cards/ + template.html -> docs/ and the single-file build
 template.html                   the app itself, before images are embedded
@@ -195,8 +226,11 @@ GitHub Pages is set to **main branch → /docs**, so the site updates a minute o
   the ID prefix, so branch staff (Moulvibazar, Habiganj) show under their ID's office.
 - Blood groups are normalised (`O +ve` → `O+ve`).
 - No two IDs collide, and every card yielded a name, ID, designation and blood group.
-- **SYL062 SUBASH DAS has no photo on the artwork** — the frame is empty. It was empty in the
-  previous version too, so it is still outstanding for the designer.
+- `extract_employees.js` records `hasPhoto` per card and warns about empty photo frames. A card
+  with no photo still reads as complete otherwise, since all its text is present, so this check
+  is the only thing that catches it.
+- **SYL062 SUBASH DAS has an empty photo frame** in the 2026-08-16 11:41 export, as in every
+  earlier one. A corrected version exists in the design but has not been exported to PDF yet.
 - **Check the artboard is tall enough after every re-export.** Illustrator clips to the artboard
   when it writes the PDF, so a card sitting past the bottom edge is dropped from the file
   entirely — not hidden, absent. The 2026-08-16 11:17 export lost ten people this way and looked

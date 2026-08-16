@@ -12,6 +12,7 @@
       "w": 224,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/SYL059.jpg"
   },
   {
@@ -27,6 +28,7 @@
       "w": 228,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/SYL001.jpg"
   },
   {
@@ -42,6 +44,7 @@
       "w": 226,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/SYL060.jpg"
   },
   {
@@ -57,6 +60,7 @@
       "w": 225,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/DAC529.jpg"
   },
   {
@@ -72,6 +76,7 @@
       "w": 224,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/SYL024.jpg"
   },
   {
@@ -87,6 +92,7 @@
       "w": 224,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/SYL020.jpg"
   },
   {
@@ -102,6 +108,7 @@
       "w": 226,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/DAC513.jpg"
   },
   {
@@ -117,6 +124,7 @@
       "w": 227,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/SYL011.jpg"
   },
   {
@@ -132,6 +140,7 @@
       "w": 224,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/SYL053.jpg"
   },
   {
@@ -147,6 +156,7 @@
       "w": 228,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/DAC519.jpg"
   },
   {
@@ -162,6 +172,7 @@
       "w": 226,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/DAC527.jpg"
   },
   {
@@ -177,6 +188,7 @@
       "w": 225,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/DAC537.jpg"
   },
   {
@@ -192,6 +204,7 @@
       "w": 224,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/DAC508.jpg"
   },
   {
@@ -207,6 +220,7 @@
       "w": 224,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/DAC505.jpg"
   },
   {
@@ -222,6 +236,7 @@
       "w": 226,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/DAC526.jpg"
   },
   {
@@ -237,6 +252,7 @@
       "w": 227,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/DAC540.jpg"
   },
   {
@@ -252,6 +268,7 @@
       "w": 224,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/DAC515.jpg"
   },
   {
@@ -267,6 +284,7 @@
       "w": 228,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/DAC517.jpg"
   },
   {
@@ -282,6 +300,7 @@
       "w": 226,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/DAC518.jpg"
   },
   {
@@ -297,6 +316,7 @@
       "w": 225,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/DAC536.jpg"
   },
   {
@@ -312,6 +332,7 @@
       "w": 224,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/SYL009.jpg"
   },
   {
@@ -327,6 +348,7 @@
       "w": 224,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/SYL006.jpg"
   },
   {
@@ -342,6 +364,7 @@
       "w": 226,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/SYL045.jpg"
   },
   {
@@ -357,6 +380,7 @@
       "w": 227,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/DAC543.jpg"
   },
   {
@@ -372,6 +396,7 @@
       "w": 224,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/DAC512.jpg"
   },
   {
@@ -387,6 +412,7 @@
       "w": 228,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/DAC502.jpg"
   },
   {
@@ -402,6 +428,7 @@
       "w": 226,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/SYL042.jpg"
   },
   {
@@ -417,6 +444,7 @@
       "w": 225,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/SYL019.jpg"
   },
   {
@@ -432,6 +460,7 @@
       "w": 224,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/SYL008.jpg"
   },
   {
@@ -447,6 +476,7 @@
       "w": 224,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/SYL010.jpg"
   },
   {
@@ -462,6 +492,7 @@
       "w": 226,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/SYL027.jpg"
   },
   {
@@ -477,6 +508,7 @@
       "w": 227,
       "h": 346
     },
+    "hasPhoto": false,
     "file": "cards/SYL062.jpg"
   },
   {
@@ -492,6 +524,7 @@
       "w": 224,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/DAC511.jpg"
   },
   {
@@ -507,6 +540,7 @@
       "w": 228,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/SYL052.jpg"
   },
   {
@@ -522,6 +556,7 @@
       "w": 226,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/SYL061.jpg"
   },
   {
@@ -537,6 +572,7 @@
       "w": 225,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/SYL022.jpg"
   },
   {
@@ -552,6 +588,7 @@
       "w": 224,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/SYL023.jpg"
   },
   {
@@ -567,6 +604,7 @@
       "w": 224,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/SYL058.jpg"
   },
   {
@@ -582,6 +620,7 @@
       "w": 226,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/DAC544.jpg"
   },
   {
@@ -597,6 +636,7 @@
       "w": 227,
       "h": 346
     },
+    "hasPhoto": true,
     "file": "cards/SYL021.jpg"
   },
   {
@@ -612,6 +652,7 @@
       "w": 224,
       "h": 345
     },
+    "hasPhoto": true,
     "file": "cards/DAC507.jpg"
   },
   {
@@ -627,6 +668,7 @@
       "w": 228,
       "h": 345
     },
+    "hasPhoto": true,
     "file": "cards/DAC516.jpg"
   },
   {
@@ -642,6 +684,7 @@
       "w": 226,
       "h": 345
     },
+    "hasPhoto": true,
     "file": "cards/DAC534.jpg"
   },
   {
@@ -657,6 +700,7 @@
       "w": 225,
       "h": 345
     },
+    "hasPhoto": true,
     "file": "cards/SYL025.jpg"
   },
   {
@@ -672,6 +716,7 @@
       "w": 224,
       "h": 345
     },
+    "hasPhoto": true,
     "file": "cards/DAC552.jpg"
   },
   {
@@ -687,6 +732,7 @@
       "w": 224,
       "h": 345
     },
+    "hasPhoto": true,
     "file": "cards/DAC545.jpg"
   },
   {
@@ -702,6 +748,7 @@
       "w": 226,
       "h": 345
     },
+    "hasPhoto": true,
     "file": "cards/DAC648.jpg"
   },
   {
@@ -717,6 +764,7 @@
       "w": 227,
       "h": 345
     },
+    "hasPhoto": true,
     "file": "cards/DAC551.jpg"
   },
   {
@@ -732,6 +780,7 @@
       "w": 224,
       "h": 351
     },
+    "hasPhoto": true,
     "file": "cards/DAC550.jpg"
   },
   {
@@ -747,6 +796,7 @@
       "w": 228,
       "h": 351
     },
+    "hasPhoto": true,
     "file": "cards/SYL028.jpg"
   },
   {
@@ -762,6 +812,7 @@
       "w": 226,
       "h": 351
     },
+    "hasPhoto": true,
     "file": "cards/DAC531.jpg"
   },
   {
@@ -777,6 +828,7 @@
       "w": 225,
       "h": 351
     },
+    "hasPhoto": true,
     "file": "cards/SYL063.jpg"
   },
   {
@@ -792,6 +844,7 @@
       "w": 224,
       "h": 351
     },
+    "hasPhoto": true,
     "file": "cards/SYL057.jpg"
   },
   {
@@ -807,6 +860,7 @@
       "w": 224,
       "h": 351
     },
+    "hasPhoto": true,
     "file": "cards/SYL002.jpg"
   },
   {
@@ -822,6 +876,7 @@
       "w": 226,
       "h": 351
     },
+    "hasPhoto": true,
     "file": "cards/SYL015.jpg"
   },
   {
@@ -837,6 +892,7 @@
       "w": 227,
       "h": 351
     },
+    "hasPhoto": true,
     "file": "cards/SYL040.jpg"
   },
   {
@@ -852,6 +908,7 @@
       "w": 224,
       "h": 349
     },
+    "hasPhoto": true,
     "file": "cards/SYL003.jpg"
   },
   {
@@ -867,6 +924,7 @@
       "w": 228,
       "h": 349
     },
+    "hasPhoto": true,
     "file": "cards/DAC524.jpg"
   },
   {
@@ -882,6 +940,7 @@
       "w": 226,
       "h": 349
     },
+    "hasPhoto": true,
     "file": "cards/SYL050.jpg"
   },
   {
@@ -897,6 +956,7 @@
       "w": 225,
       "h": 349
     },
+    "hasPhoto": true,
     "file": "cards/DAC549.jpg"
   },
   {
@@ -912,6 +972,7 @@
       "w": 224,
       "h": 349
     },
+    "hasPhoto": true,
     "file": "cards/DAC501.jpg"
   },
   {
@@ -927,6 +988,7 @@
       "w": 224,
       "h": 349
     },
+    "hasPhoto": true,
     "file": "cards/DAC525.jpg"
   },
   {
@@ -942,6 +1004,7 @@
       "w": 226,
       "h": 349
     },
+    "hasPhoto": true,
     "file": "cards/DAC521.jpg"
   },
   {
@@ -957,6 +1020,7 @@
       "w": 227,
       "h": 349
     },
+    "hasPhoto": true,
     "file": "cards/SYL038.jpg"
   },
   {
@@ -972,6 +1036,7 @@
       "w": 224,
       "h": 349
     },
+    "hasPhoto": true,
     "file": "cards/DAC523.jpg"
   },
   {
@@ -987,6 +1052,7 @@
       "w": 228,
       "h": 349
     },
+    "hasPhoto": true,
     "file": "cards/SYL018.jpg"
   }
 ]
