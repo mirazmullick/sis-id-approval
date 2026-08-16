@@ -14,7 +14,6 @@ const { execFileSync } = require('child_process');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
-const zlib = require('zlib');
 
 const PDF = process.env.SRC_PDF || 'C:/Users/molli/OneDrive/Desktop/Employee ID.pdf';
 const BIN = process.env.POPPLER_BIN ||
@@ -109,56 +108,53 @@ ROWS.forEach(([ry0, ry1], row) => {
   });
 });
 // --- pass 3: which cards actually carry a photo? -----------------------------
-// An empty photo frame reads as a perfectly good card in passes 1 and 2 — the
-// text is all there — so it has to be caught by looking for a placed image
-// inside the card. Every `... cm /ImN Do` in the content stream is one placed
-// image; map its centre to a card the same way words were mapped.
-function photoIds() {
-  const raw = fs.readFileSync(PDF);
-  const s = raw.toString('latin1');
-  const pageAt = s.indexOf('\r10 0 obj\r') + 1;
-  const pageDict = s.slice(pageAt, s.indexOf('endobj', pageAt));
-  const pageHeight = +/\/MediaBox\[\s*[\d.-]+\s+[\d.-]+\s+[\d.-]+\s+([\d.]+)/.exec(pageDict)[1];
+// An empty photo frame reads as a perfectly good card in passes 1 and 2 — all
+// the text is present — so it needs its own check.
+//
+// This looks at the rendered pixels inside the photo frame, not at the PDF's
+// internals. An earlier version scanned the content stream for `cm /ImN Do`
+// placements, which silently reported SUBASH DAS as photoless after the artwork
+// was fixed: his photo is drawn through a path the scan never reached. Pixels
+// are what actually gets printed, so they are what gets checked.
+//
+// The frame sits in the same place on every card. Sampling well inside it keeps
+// the teal border out of the reading; an empty frame is flat white, a photo is
+// not.
+const FRAME = { x0: 0.34, x1: 0.70, y0: 0.36, y1: 0.62 };
+const INK_FRACTION = 0.05;   // an empty frame measures ~0; a photo, well over half
 
-  const contentsAt = s.indexOf('\r' + /\/Contents (\d+) 0 R/.exec(pageDict)[1] + ' 0 obj') + 1;
-  const streamAt = s.indexOf('stream', contentsAt);
-  const dict = s.slice(contentsAt, streamAt);
-  let at = streamAt + 6;
-  if (s[at] === '\r') at++;
-  if (s[at] === '\n') at++;
-  let body = raw.slice(at, at + Number(/\/Length (\d+)/.exec(dict)[1]));
-  if (/FlateDecode/.test(dict)) body = zlib.inflateSync(body);
-  body = body.toString('latin1');
-
-  const placed = /([\d.-]+) ([\d.-]+) ([\d.-]+) ([\d.-]+) ([\d.-]+) ([\d.-]+) cm[\s\S]{0,80}?\/Im\d+ Do/g;
-  const withPhoto = new Set();
-  let m;
-  while ((m = placed.exec(body))) {
-    // PDF space is bottom-left origin; card crops are top-left, 100 dpi pixels
-    const cx = (+m[5] + +m[1] / 2) / PT;
-    const cy = (pageHeight - (+m[6] + +m[4] / 2)) / PT;
-    const card = employees.find(e => cx >= e.crop.x && cx <= e.crop.x + e.crop.w &&
-                                     cy >= e.crop.y && cy <= e.crop.y + e.crop.h);
-    if (card) withPhoto.add(card.empId);
+function photoCover(card) {
+  const x0 = Math.round(card.crop.x + card.crop.w * FRAME.x0);
+  const x1 = Math.round(card.crop.x + card.crop.w * FRAME.x1);
+  const y0 = Math.round(card.crop.y + card.crop.h * FRAME.y0);
+  const y1 = Math.round(card.crop.y + card.crop.h * FRAME.y1);
+  let ink = 0, seen = 0;
+  for (let y = Math.max(0, y0); y < Math.min(H, y1); y++) {
+    for (let x = Math.max(0, x0); x < Math.min(W, x1); x++) {
+      if (pgm[p + y * W + x] < 245) ink++;
+      seen++;
+    }
   }
-  return withPhoto;
+  return seen ? ink / seen : 0;
 }
 
-let withPhoto;
-try {
-  withPhoto = photoIds();
-} catch (err) {
-  // Only the photo check depends on the content stream's exact shape, so a
-  // change in how Illustrator writes the PDF must not break the whole extract.
-  console.warn('WARN could not read photo placements (' + err.message + '); hasPhoto left null');
-  withPhoto = null;
-}
 employees.forEach(e => {
-  e.hasPhoto = withPhoto ? withPhoto.has(e.empId) : null;
+  e.photoCover = Math.round(photoCover(e) * 1000) / 1000;
+  e.hasPhoto = e.photoCover >= INK_FRACTION;
   e.file = 'cards/' + e.empId + '.jpg';
 });
-const noPhoto = employees.filter(e => e.hasPhoto === false);
-if (noPhoto.length) console.warn('WARN empty photo frame:', noPhoto.map(e => e.empId + ' ' + e.name).join('; '));
+const noPhoto = employees.filter(e => !e.hasPhoto);
+if (noPhoto.length) {
+  console.warn('WARN empty photo frame:',
+    noPhoto.map(e => e.empId + ' ' + e.name + ' (' + e.photoCover + ')').join('; '));
+}
+// A frame that is neither clearly blank nor clearly a photo means FRAME or
+// INK_FRACTION no longer matches the artwork — say so rather than guess.
+const unsure = employees.filter(e => e.photoCover > 0.005 && e.photoCover < 0.25);
+if (unsure.length) {
+  console.warn('WARN photo check is borderline, verify by eye:',
+    unsure.map(e => e.empId + ' (' + e.photoCover + ')').join('; '));
+}
 
 const dupes = employees.map(e => e.empId).filter((id, i, a) => a.indexOf(id) !== i);
 if (dupes.length) console.warn('WARN duplicate employee IDs:', dupes.join(', '));
