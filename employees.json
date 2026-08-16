@@ -9,10 +9,10 @@
     "crop": {
       "x": 86,
       "y": 121,
-      "w": 223,
-      "h": 345
+      "w": 224,
+      "h": 346
     },
-    "file": "cards/SYL059.png"
+    "file": "cards/SYL059.jpg"
   },
   {
     "empId": "SYL001",
@@ -24,10 +24,10 @@
     "crop": {
       "x": 324,
       "y": 121,
-      "w": 223,
-      "h": 345
+      "w": 226,
+      "h": 346
     },
-    "file": "cards/SYL001.png"
+    "file": "cards/SYL001.jpg"
   },
   {
     "empId": "SYL060",
@@ -39,10 +39,10 @@
     "crop": {
       "x": 562,
       "y": 121,
-      "w": 223,
-      "h": 345
+      "w": 226,
+      "h": 346
     },
-    "file": "cards/SYL060.png"
+    "file": "cards/SYL060.jpg"
   },
   {
     "empId": "DAC529",
@@ -52,12 +52,12 @@
     "row": 0,
     "col": 3,
     "crop": {
-      "x": 801,
+      "x": 800,
       "y": 121,
-      "w": 223,
-      "h": 345
+      "w": 225,
+      "h": 346
     },
-    "file": "cards/DAC529.png"
+    "file": "cards/DAC529.jpg"
   },
   {
     "empId": "SYL024",
@@ -69,10 +69,10 @@
     "crop": {
       "x": 1039,
       "y": 121,
-      "w": 223,
-      "h": 345
+      "w": 224,
+      "h": 346
     },
-    "file": "cards/SYL024.png"
+    "file": "cards/SYL024.jpg"
   },
   {
     "empId": "SYL020",
@@ -84,10 +84,10 @@
     "crop": {
       "x": 1277,
       "y": 121,
-      "w": 223,
-      "h": 345
+      "w": 224,
+      "h": 346
     },
-    "file": "cards/SYL020.png"
+    "file": "cards/SYL020.jpg"
   },
   {
     "empId": "DAC513",
@@ -97,12 +97,12 @@
     "row": 0,
     "col": 6,
     "crop": {
-      "x": 1515,
+      "x": 1513,
       "y": 121,
-      "w": 223,
-      "h": 345
+      "w": 226,
+      "h": 346
     },
-    "file": "cards/DAC513.png"
+    "file": "cards/DAC513.jpg"
   },
   {
     "empId": "SYL011",
@@ -112,102 +112,102 @@
     "row": 0,
     "col": 7,
     "crop": {
-      "x": 1754,
+      "x": 1750,
       "y": 121,
-      "w": 222,
-      "h": 345
+      "w": 227,
+      "h": 346
     },
-    "file": "cards/SYL011.png"
+    "file": "cards/SYL011.jpg"
   },
   {
     "empId": "SYL053",
     "name": "MONTASIR MAMUN",
-    "designation": "Executive (Business Development)",
+    "designation": "Executive (Business Development) Habiganj",
     "blood": "B +ve",
     "row": 1,
     "col": 0,
     "crop": {
       "x": 86,
       "y": 516,
-      "w": 223,
-      "h": 345
+      "w": 224,
+      "h": 346
     },
-    "file": "cards/SYL053.png"
+    "file": "cards/SYL053.jpg"
   },
   {
     "empId": "DAC519",
     "name": "MD RAFAYTUL ISLAM",
-    "designation": "Sr. Travel Consultant Reservation & Ticketing",
+    "designation": "Sr. Travel Consultant Reservation & Ticketing Flight24.co",
     "blood": "A +ve",
     "row": 1,
     "col": 1,
     "crop": {
       "x": 324,
       "y": 516,
-      "w": 223,
-      "h": 345
+      "w": 226,
+      "h": 346
     },
-    "file": "cards/DAC519.png"
+    "file": "cards/DAC519.jpg"
   },
   {
     "empId": "DAC527",
     "name": "MD MEZANUR RAHAMAN",
-    "designation": "Asst. Manager (Holidays)",
+    "designation": "Asst. Manager Operation (Holidays)",
     "blood": "B +ve",
     "row": 1,
     "col": 2,
     "crop": {
       "x": 562,
       "y": 516,
-      "w": 223,
-      "h": 345
+      "w": 226,
+      "h": 346
     },
-    "file": "cards/DAC527.png"
+    "file": "cards/DAC527.jpg"
   },
   {
     "empId": "DAC537",
     "name": "ISHTIAQ AHAMED SIDDIQUEE",
     "designation": "Sr. Travel Consultant Reservation & Ticketing",
-    "blood": "B +ve",
+    "blood": "O +ve",
     "row": 1,
     "col": 3,
     "crop": {
-      "x": 801,
+      "x": 800,
       "y": 516,
-      "w": 223,
-      "h": 345
+      "w": 225,
+      "h": 346
     },
-    "file": "cards/DAC537.png"
+    "file": "cards/DAC537.jpg"
   },
   {
     "empId": "DAC508",
     "name": "SYED MOINUL HOSSAIN",
-    "designation": "Manager - Operations",
+    "designation": "Manager - Operations & HR",
     "blood": "B +ve",
     "row": 1,
     "col": 4,
     "crop": {
       "x": 1039,
       "y": 516,
-      "w": 223,
-      "h": 345
+      "w": 224,
+      "h": 346
     },
-    "file": "cards/DAC508.png"
+    "file": "cards/DAC508.jpg"
   },
   {
     "empId": "DAC505",
     "name": "MD KAMAL HOSSAIN",
-    "designation": "Executive - Visa Processing",
+    "designation": "Executive - Visa Processing Suma Overseas RL-714",
     "blood": "O +ve",
     "row": 1,
     "col": 5,
     "crop": {
       "x": 1277,
       "y": 516,
-      "w": 223,
-      "h": 345
+      "w": 224,
+      "h": 346
     },
-    "file": "cards/DAC505.png"
+    "file": "cards/DAC505.jpg"
   },
   {
     "empId": "DAC526",
@@ -217,12 +217,12 @@
     "row": 1,
     "col": 6,
     "crop": {
-      "x": 1515,
+      "x": 1513,
       "y": 516,
-      "w": 223,
-      "h": 345
+      "w": 226,
+      "h": 346
     },
-    "file": "cards/DAC526.png"
+    "file": "cards/DAC526.jpg"
   },
   {
     "empId": "DAC540",
@@ -232,12 +232,12 @@
     "row": 1,
     "col": 7,
     "crop": {
-      "x": 1754,
+      "x": 1750,
       "y": 516,
-      "w": 222,
-      "h": 345
+      "w": 227,
+      "h": 346
     },
-    "file": "cards/DAC540.png"
+    "file": "cards/DAC540.jpg"
   },
   {
     "empId": "DAC515",
@@ -249,10 +249,10 @@
     "crop": {
       "x": 86,
       "y": 911,
-      "w": 223,
-      "h": 345
+      "w": 224,
+      "h": 346
     },
-    "file": "cards/DAC515.png"
+    "file": "cards/DAC515.jpg"
   },
   {
     "empId": "DAC517",
@@ -264,40 +264,40 @@
     "crop": {
       "x": 324,
       "y": 911,
-      "w": 223,
-      "h": 345
+      "w": 226,
+      "h": 346
     },
-    "file": "cards/DAC517.png"
+    "file": "cards/DAC517.jpg"
   },
   {
     "empId": "DAC518",
     "name": "MD SYEDUL ISLAM",
-    "designation": "Executive-Visa Processing",
+    "designation": "Executive-Visa Processing Suma Overseas RL-714",
     "blood": "O +ve",
     "row": 2,
     "col": 2,
     "crop": {
       "x": 562,
       "y": 911,
-      "w": 223,
-      "h": 345
+      "w": 226,
+      "h": 346
     },
-    "file": "cards/DAC518.png"
+    "file": "cards/DAC518.jpg"
   },
   {
-    "empId": "DAC535",
+    "empId": "DAC536",
     "name": "RAYHAN AHMED",
     "designation": "Executive Reservation & Ticketing",
     "blood": "O +ve",
     "row": 2,
     "col": 3,
     "crop": {
-      "x": 801,
+      "x": 800,
       "y": 911,
-      "w": 223,
-      "h": 345
+      "w": 225,
+      "h": 346
     },
-    "file": "cards/DAC535.png"
+    "file": "cards/DAC536.jpg"
   },
   {
     "empId": "SYL009",
@@ -309,10 +309,10 @@
     "crop": {
       "x": 1039,
       "y": 911,
-      "w": 223,
-      "h": 345
+      "w": 224,
+      "h": 346
     },
-    "file": "cards/SYL009.png"
+    "file": "cards/SYL009.jpg"
   },
   {
     "empId": "SYL006",
@@ -324,25 +324,25 @@
     "crop": {
       "x": 1277,
       "y": 911,
-      "w": 223,
-      "h": 345
+      "w": 224,
+      "h": 346
     },
-    "file": "cards/SYL006.png"
+    "file": "cards/SYL006.jpg"
   },
   {
     "empId": "SYL045",
-    "name": "MOHAMMAD SOHEL",
-    "designation": "Executive - Accounts",
-    "blood": "B +ve",
+    "name": "MUHAMMAD SOHEL",
+    "designation": "Accountant",
+    "blood": "B -ve",
     "row": 2,
     "col": 6,
     "crop": {
-      "x": 1515,
+      "x": 1513,
       "y": 911,
-      "w": 223,
-      "h": 345
+      "w": 226,
+      "h": 346
     },
-    "file": "cards/SYL045.png"
+    "file": "cards/SYL045.jpg"
   },
   {
     "empId": "DAC543",
@@ -352,27 +352,27 @@
     "row": 2,
     "col": 7,
     "crop": {
-      "x": 1754,
+      "x": 1750,
       "y": 911,
-      "w": 222,
-      "h": 345
+      "w": 227,
+      "h": 346
     },
-    "file": "cards/DAC543.png"
+    "file": "cards/DAC543.jpg"
   },
   {
     "empId": "DAC512",
     "name": "S M SOHEL UDDIN",
-    "designation": "Chief Operating Officer",
+    "designation": "Chief Operating Officer Flight24.co",
     "blood": "O +ve",
     "row": 3,
     "col": 0,
     "crop": {
       "x": 86,
       "y": 1306,
-      "w": 223,
-      "h": 345
+      "w": 224,
+      "h": 346
     },
-    "file": "cards/DAC512.png"
+    "file": "cards/DAC512.jpg"
   },
   {
     "empId": "DAC502",
@@ -384,10 +384,10 @@
     "crop": {
       "x": 324,
       "y": 1306,
-      "w": 223,
-      "h": 345
+      "w": 226,
+      "h": 346
     },
-    "file": "cards/DAC502.png"
+    "file": "cards/DAC502.jpg"
   },
   {
     "empId": "SYL042",
@@ -399,10 +399,10 @@
     "crop": {
       "x": 562,
       "y": 1306,
-      "w": 223,
-      "h": 345
+      "w": 226,
+      "h": 346
     },
-    "file": "cards/SYL042.png"
+    "file": "cards/SYL042.jpg"
   },
   {
     "empId": "SYL019",
@@ -412,27 +412,27 @@
     "row": 3,
     "col": 3,
     "crop": {
-      "x": 801,
+      "x": 800,
       "y": 1306,
-      "w": 223,
-      "h": 345
+      "w": 225,
+      "h": 346
     },
-    "file": "cards/SYL019.png"
+    "file": "cards/SYL019.jpg"
   },
   {
     "empId": "SYL008",
     "name": "SHIBANANDA PAUL",
-    "designation": "Asst. Manager Sales & Ticketing",
+    "designation": "Asst. Manager Sales & Ticketing Flight24.co",
     "blood": "O +ve",
     "row": 3,
     "col": 4,
     "crop": {
       "x": 1039,
       "y": 1306,
-      "w": 223,
-      "h": 345
+      "w": 224,
+      "h": 346
     },
-    "file": "cards/SYL008.png"
+    "file": "cards/SYL008.jpg"
   },
   {
     "empId": "SYL010",
@@ -444,25 +444,25 @@
     "crop": {
       "x": 1277,
       "y": 1306,
-      "w": 223,
-      "h": 345
+      "w": 224,
+      "h": 346
     },
-    "file": "cards/SYL010.png"
+    "file": "cards/SYL010.jpg"
   },
   {
     "empId": "SYL027",
     "name": "IMRAN AHMED CHOWDHURY",
-    "designation": "Sr. Executive - Accounts",
+    "designation": "Asst. Manager - Accounts",
     "blood": "B +ve",
     "row": 3,
     "col": 6,
     "crop": {
-      "x": 1515,
+      "x": 1513,
       "y": 1306,
-      "w": 223,
-      "h": 345
+      "w": 226,
+      "h": 346
     },
-    "file": "cards/SYL027.png"
+    "file": "cards/SYL027.jpg"
   },
   {
     "empId": "SYL062",
@@ -472,12 +472,12 @@
     "row": 3,
     "col": 7,
     "crop": {
-      "x": 1754,
+      "x": 1750,
       "y": 1306,
-      "w": 222,
-      "h": 345
+      "w": 227,
+      "h": 346
     },
-    "file": "cards/SYL062.png"
+    "file": "cards/SYL062.jpg"
   },
   {
     "empId": "DAC511",
@@ -489,10 +489,10 @@
     "crop": {
       "x": 86,
       "y": 1701,
-      "w": 223,
-      "h": 345
+      "w": 224,
+      "h": 346
     },
-    "file": "cards/DAC511.png"
+    "file": "cards/DAC511.jpg"
   },
   {
     "empId": "SYL052",
@@ -504,10 +504,10 @@
     "crop": {
       "x": 324,
       "y": 1701,
-      "w": 223,
-      "h": 345
+      "w": 226,
+      "h": 346
     },
-    "file": "cards/SYL052.png"
+    "file": "cards/SYL052.jpg"
   },
   {
     "empId": "SYL061",
@@ -519,10 +519,10 @@
     "crop": {
       "x": 562,
       "y": 1701,
-      "w": 223,
-      "h": 345
+      "w": 226,
+      "h": 346
     },
-    "file": "cards/SYL061.png"
+    "file": "cards/SYL061.jpg"
   },
   {
     "empId": "SYL022",
@@ -532,12 +532,12 @@
     "row": 4,
     "col": 3,
     "crop": {
-      "x": 801,
+      "x": 800,
       "y": 1701,
-      "w": 223,
-      "h": 345
+      "w": 225,
+      "h": 346
     },
-    "file": "cards/SYL022.png"
+    "file": "cards/SYL022.jpg"
   },
   {
     "empId": "SYL023",
@@ -549,10 +549,10 @@
     "crop": {
       "x": 1039,
       "y": 1701,
-      "w": 223,
-      "h": 345
+      "w": 224,
+      "h": 346
     },
-    "file": "cards/SYL023.png"
+    "file": "cards/SYL023.jpg"
   },
   {
     "empId": "SYL058",
@@ -564,25 +564,25 @@
     "crop": {
       "x": 1277,
       "y": 1701,
-      "w": 223,
-      "h": 345
+      "w": 224,
+      "h": 346
     },
-    "file": "cards/SYL058.png"
+    "file": "cards/SYL058.jpg"
   },
   {
     "empId": "DAC544",
     "name": "INZAMAMUL HAQUE",
     "designation": "Executive - Hajj & Umrah",
-    "blood": "B +ve",
+    "blood": "O +ve",
     "row": 4,
     "col": 6,
     "crop": {
-      "x": 1515,
+      "x": 1513,
       "y": 1701,
-      "w": 223,
-      "h": 345
+      "w": 226,
+      "h": 346
     },
-    "file": "cards/DAC544.png"
+    "file": "cards/DAC544.jpg"
   },
   {
     "empId": "SYL021",
@@ -592,42 +592,42 @@
     "row": 4,
     "col": 7,
     "crop": {
-      "x": 1754,
+      "x": 1750,
       "y": 1701,
-      "w": 222,
-      "h": 345
+      "w": 227,
+      "h": 346
     },
-    "file": "cards/SYL021.png"
+    "file": "cards/SYL021.jpg"
   },
   {
     "empId": "DAC507",
     "name": "MD RASHAL",
-    "designation": "Executive - Man Power",
+    "designation": "Executive - Man Power Suma Overseas RL-714",
     "blood": "A +ve",
     "row": 5,
     "col": 0,
     "crop": {
       "x": 86,
       "y": 2096,
-      "w": 223,
-      "h": 345
+      "w": 224,
+      "h": 346
     },
-    "file": "cards/DAC507.png"
+    "file": "cards/DAC507.jpg"
   },
   {
     "empId": "DAC516",
     "name": "ARIFUR RAHMAN",
-    "designation": "Executive - Accounts",
+    "designation": "Executive Accounts & Finance",
     "blood": "B +ve",
     "row": 5,
     "col": 1,
     "crop": {
       "x": 324,
       "y": 2096,
-      "w": 223,
-      "h": 345
+      "w": 226,
+      "h": 346
     },
-    "file": "cards/DAC516.png"
+    "file": "cards/DAC516.jpg"
   },
   {
     "empId": "DAC534",
@@ -639,10 +639,10 @@
     "crop": {
       "x": 562,
       "y": 2096,
-      "w": 223,
-      "h": 345
+      "w": 226,
+      "h": 346
     },
-    "file": "cards/DAC534.png"
+    "file": "cards/DAC534.jpg"
   },
   {
     "empId": "SYL025",
@@ -652,12 +652,12 @@
     "row": 5,
     "col": 3,
     "crop": {
-      "x": 801,
+      "x": 800,
       "y": 2096,
-      "w": 223,
-      "h": 345
+      "w": 225,
+      "h": 346
     },
-    "file": "cards/SYL025.png"
+    "file": "cards/SYL025.jpg"
   },
   {
     "empId": "DAC552",
@@ -669,10 +669,10 @@
     "crop": {
       "x": 1039,
       "y": 2096,
-      "w": 223,
-      "h": 345
+      "w": 224,
+      "h": 346
     },
-    "file": "cards/DAC552.png"
+    "file": "cards/DAC552.jpg"
   },
   {
     "empId": "DAC545",
@@ -684,69 +684,159 @@
     "crop": {
       "x": 1277,
       "y": 2096,
-      "w": 223,
-      "h": 345
+      "w": 224,
+      "h": 346
     },
-    "file": "cards/DAC545.png"
+    "file": "cards/DAC545.jpg"
   },
   {
     "empId": "DAC648",
     "name": "NADIA ISLAM",
-    "designation": "Senior Executive Business Development",
+    "designation": "Senior Executive Business Development Flight24.co",
     "blood": "B +ve",
     "row": 5,
     "col": 6,
     "crop": {
-      "x": 1515,
+      "x": 1513,
       "y": 2096,
-      "w": 223,
-      "h": 345
+      "w": 226,
+      "h": 346
     },
-    "file": "cards/DAC648.png"
+    "file": "cards/DAC648.jpg"
   },
   {
     "empId": "DAC551",
     "name": "MIZANUR RAHMAN RANA",
-    "designation": "Senior Executive Reservation & Ticketing",
+    "designation": "Senior Executive Reservation & Ticketing Flight24.co",
     "blood": "A +ve",
     "row": 5,
     "col": 7,
     "crop": {
-      "x": 1754,
+      "x": 1750,
       "y": 2096,
-      "w": 222,
-      "h": 345
+      "w": 227,
+      "h": 346
     },
-    "file": "cards/DAC551.png"
+    "file": "cards/DAC551.jpg"
   },
   {
     "empId": "DAC550",
     "name": "MIZANUR RAHMAN",
-    "designation": "Assistant Manager Business Development",
+    "designation": "Assistant Manager Business Development Flight24.co",
     "blood": "A +ve",
     "row": 6,
     "col": 0,
     "crop": {
       "x": 86,
       "y": 2469,
-      "w": 223,
-      "h": 345
+      "w": 224,
+      "h": 351
     },
-    "file": "cards/DAC550.png"
+    "file": "cards/DAC550.jpg"
   },
   {
-    "empId": "DAC546",
-    "name": "FUAD HASAN KHAN",
-    "designation": "Executive - Hajj & Umrah",
+    "empId": "SYL028",
+    "name": "RAFIQUE AHMED",
+    "designation": "Sr. Executive Visa Management Suma Overseas RL-714",
     "blood": "B +ve",
     "row": 6,
     "col": 1,
     "crop": {
       "x": 324,
       "y": 2469,
-      "w": 223,
-      "h": 345
+      "w": 226,
+      "h": 351
     },
-    "file": "cards/DAC546.png"
+    "file": "cards/SYL028.jpg"
+  },
+  {
+    "empId": "DAC531",
+    "name": "MD SHAKEEL",
+    "designation": "Office Assistant HR & Administration",
+    "blood": "A +ve",
+    "row": 6,
+    "col": 2,
+    "crop": {
+      "x": 562,
+      "y": 2469,
+      "w": 226,
+      "h": 351
+    },
+    "file": "cards/DAC531.jpg"
+  },
+  {
+    "empId": "SYL063",
+    "name": "SHAFIQUL ISLAM",
+    "designation": "Head of Sales Flight24.co",
+    "blood": "O +ve",
+    "row": 6,
+    "col": 3,
+    "crop": {
+      "x": 800,
+      "y": 2469,
+      "w": 225,
+      "h": 351
+    },
+    "file": "cards/SYL063.jpg"
+  },
+  {
+    "empId": "SYL057",
+    "name": "KAWSAR AHMED",
+    "designation": "Executive Business Development",
+    "blood": "O +ve",
+    "row": 6,
+    "col": 4,
+    "crop": {
+      "x": 1039,
+      "y": 2469,
+      "w": 224,
+      "h": 351
+    },
+    "file": "cards/SYL057.jpg"
+  },
+  {
+    "empId": "SYL002",
+    "name": "ASHFAQUL HAQUE OVEE",
+    "designation": "Assistant Manager",
+    "blood": "AB +ve",
+    "row": 6,
+    "col": 5,
+    "crop": {
+      "x": 1277,
+      "y": 2469,
+      "w": 224,
+      "h": 351
+    },
+    "file": "cards/SYL002.jpg"
+  },
+  {
+    "empId": "SYL015",
+    "name": "JAHED AHMED",
+    "designation": "Executive Business Development",
+    "blood": "A +ve",
+    "row": 6,
+    "col": 6,
+    "crop": {
+      "x": 1513,
+      "y": 2469,
+      "w": 226,
+      "h": 351
+    },
+    "file": "cards/SYL015.jpg"
+  },
+  {
+    "empId": "SYL040",
+    "name": "JAMIL MIAH",
+    "designation": "Reservation",
+    "blood": "B +ve",
+    "row": 6,
+    "col": 7,
+    "crop": {
+      "x": 1750,
+      "y": 2469,
+      "w": 227,
+      "h": 351
+    },
+    "file": "cards/SYL040.jpg"
   }
 ]

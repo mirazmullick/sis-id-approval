@@ -1,9 +1,9 @@
 # Suma Group — Employee ID Card Approval Dashboard
 
-Turns the `Employee ID.pdf` artboard (one page, 50 ID cards) into a review tool where each
+Turns the `Employee ID.pdf` artboard (one page, 56 ID cards) into a review tool where each
 person opens their own card, ticks **approve** if it is correct, or writes what needs fixing.
 
-> **This repository is public.** The 50 employee photos, names, employee IDs, designations and
+> **This repository is public.** The 56 employee photos, names, employee IDs, designations and
 > blood groups in `docs/` are readable by anyone who has the URL, and they stay in the git
 > history even if deleted later. `robots.txt` and a `noindex` tag keep the site out of Google,
 > which is not the same as private. To pull it down: delete the repo, or turn Pages off in
@@ -15,7 +15,7 @@ person opens their own card, ticks **approve** if it is correct, or writes what 
 Send staff the link, or a direct link to their own card, e.g. `…/sis-id-approval/#SYL059`.
 Works on any phone. Loads in under a second because card images are fetched one at a time.
 
-**`SIS-Employee-ID-Approval.html`** (3.4 MB) — the same dashboard in one file, with all 50 card
+**`SIS-Employee-ID-Approval.html`** (3.8 MB) — the same dashboard in one file, with all 56 card
 images embedded. No internet, no server, no install. Email it, drop it on a shared drive, or put
 it on a USB stick. Also downloadable from the live site at
 `…/sis-id-approval/SIS-Employee-ID-Approval.html`.
@@ -49,7 +49,7 @@ Direct link to one person's card: append their ID to the file path, e.g. `…ID-
 7. **Anyone missing** taps *+ New ID card*, fills in name, ID, designation, blood group and
    office, uploads a passport photo of any size, and sends. It lands in the *New requests*
    tab with the photo saved to a Drive folder.
-8. **You watch it fill up** with the *Team responses* button in the dashboard: all 50 plus new
+8. **You watch it fill up** with the *Team responses* button in the dashboard: all 56 plus new
    requests, with counts and a **Download Excel** button. The Google Sheet is only the mailbox
    that catches submissions — the workbook you actually work in is the `.xlsx` you download.
 9. **When enough have answered**, filter to *Corrections*, hit *Copy correction list for
@@ -62,7 +62,7 @@ Two things to be aware of before you send the link out:
 - **There is no login.** Anyone with the link can approve any card, and the *Reviewed by* name
   is simply typed in. For an internal 50-person office that is usually fine, but it is an
   honour-system record, not a signature.
-- **The link is public.** Anyone who has it sees all 50 photos, IDs and blood groups.
+- **The link is public.** Anyone who has it sees all 56 photos, IDs and blood groups.
 
 ## The working file is Excel
 
@@ -72,7 +72,7 @@ Everything comes out as a real `.xlsx` workbook — **Export & tools → Downloa
 | Tab | What's in it |
 | --- | --- |
 | Summary | Generated-on, who prepared it, and the counts |
-| Responses | All 50, with status, approved yes/no, remarks, who answered, when |
+| Responses | All 56, with status, approved yes/no, remarks, who answered, when |
 | New requests | Manually added cards, with the photo link |
 
 Written by `lib/xlsx.js` — no library, no add-in, no Google. Header row frozen, columns sized.
@@ -118,7 +118,7 @@ Under **Export & tools**:
 
 | Action | Use it for |
 | --- | --- |
-| Download responses (CSV) | Full 50-row sheet for Excel: status, approved yes/no, remarks, who, when |
+| Download responses (CSV) | Full 56-row sheet for Excel: status, approved yes/no, remarks, who, when |
 | Download responses (JSON) | The machine-readable version, used for merging |
 | Copy my response as text | An employee pastes their own result into WhatsApp or email |
 | Copy correction list for designer | Only the cards needing changes, numbered, ready to send to whoever edits the Illustrator file |
@@ -127,7 +127,7 @@ Under **Export & tools**:
 
 Responses live in the browser's local storage, so they are per-device. Two ways to run it:
 
-- **Central review (simplest):** one HR machine opens the file and goes through all 50 with
+- **Central review (simplest):** one HR machine opens the file and goes through all 56 with
   people confirming. Export the CSV at the end.
 - **Distributed review:** everyone gets the file, marks their own card, then uses
   *Download responses (JSON)* and sends the small file back. HR merges them all with
@@ -148,28 +148,31 @@ browser until a backend is added.
 
 ## Rebuilding after the artwork changes
 
-The source PDF is a single Adobe Illustrator artboard, 1524 × 2107 pt, holding 50 cards in an
-8-column grid. Card positions were detected from a 100 dpi render (white gutters between cards),
+The source PDF is a single Adobe Illustrator artboard, 1524 × 2107 pt, holding 56 cards in a
+7-row, 8-column grid. Card positions were detected from a 100 dpi render (white gutters between cards),
 and the text of every card was read from the PDF's own text layer, so names, IDs, designations
 and blood groups are exact, not OCR guesses.
 
 ```bash
-node render_cards.js   # re-cuts cards/<ID>.jpg from the PDF at 220 dpi
-node build.js          # re-embeds them into SIS-Employee-ID-Approval.html
+node extract_employees.js   # re-reads the grid and the text -> employees.json
+node render_cards.js        # re-cuts cards/<ID>.jpg from the PDF at 220 dpi
+node build.js               # re-embeds them into SIS-Employee-ID-Approval.html
 ```
 
-`render_cards.js` reads the source path from `SRC_PDF` (defaults to the Desktop copy).
-If the grid or card count changes, re-derive `employees.json` — the detection scripts are in the
-session scratchpad (`bands.js`, `extract.js`) and can be copied here on request.
+The two that touch the PDF read its path from `SRC_PDF` (defaults to the Desktop copy). Run
+`extract_employees.js` whenever people are added, removed or moved — it re-detects the grid, so a
+new row needs no code change. Skip it and run the other two if only a photo was swapped.
+Delete stale `cards/*.jpg` first if anyone was removed, otherwise their image lingers on disk.
 
 ## Files
 
 ```
 docs/                           what GitHub Pages serves (index.html, cards/, robots.txt)
 SIS-Employee-ID-Approval.html   the offline single-file build
-employees.json                  50 records + crop boxes (source of truth for the build)
-cards/                          50 individual card JPEGs, 491 × 759 px
+employees.json                  56 records + crop boxes (source of truth for the build)
+cards/                          56 individual card JPEGs, ~493 × 762 px
 brand/                          suma mark + full lockup, cut from the artwork, transparent PNG
+extract_employees.js            PDF -> employees.json (grid detection + text layer)
 render_cards.js                 PDF -> cards/
 build.js                        cards/ + template.html -> docs/ and the single-file build
 template.html                   the app itself, before images are embedded
@@ -188,7 +191,11 @@ GitHub Pages is set to **main branch → /docs**, so the site updates a minute o
 
 ## Notes on the data
 
-- 50 employees: 23 Sylhet (`SYL…`) and 27 Dhaka (`DAC…`) — the office column is derived from
+- 56 employees: 29 Sylhet (`SYL…`) and 27 Dhaka (`DAC…`) — the office column is derived from
   the ID prefix, so branch staff (Moulvibazar, Habiganj) show under their ID's office.
 - Blood groups are normalised (`O +ve` → `O+ve`).
 - No two IDs collide, and every card yielded a name, ID, designation and blood group.
+- **SYL062 SUBASH DAS has no photo on the artwork** — the frame is empty. It was empty in the
+  previous version too, so it is still outstanding for the designer.
+- The artboard carries a part-row of eight blank card shells below the last real row. They hold
+  no text, so `extract_employees.js` drops them; they are clipped by the artboard and do not print.
