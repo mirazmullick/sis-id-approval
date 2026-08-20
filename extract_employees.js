@@ -15,7 +15,7 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
-const PDF = process.env.SRC_PDF || 'C:/Users/molli/OneDrive/Desktop/Employee ID.pdf';
+const PDF = require('./lib/source_pdf.js').sourcePdf();
 const BIN = process.env.POPPLER_BIN ||
   'C:/Users/molli/AppData/Local/Microsoft/WinGet/Packages/oschwartz10612.Poppler_Microsoft.Winget.Source_8wekyb3d8bbwe/poppler-25.07.0/Library/bin';
 const DPI = 100;                 // crop boxes in employees.json are in 100 dpi pixels

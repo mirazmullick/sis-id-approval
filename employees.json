@@ -77,7 +77,7 @@
     "crop": {
       "x": 1039,
       "y": 121,
-      "w": 224,
+      "w": 226,
       "h": 346
     },
     "photoCover": 0.699,
@@ -94,10 +94,10 @@
     "crop": {
       "x": 1277,
       "y": 121,
-      "w": 224,
+      "w": 227,
       "h": 346
     },
-    "photoCover": 0.692,
+    "photoCover": 0.687,
     "hasPhoto": true,
     "file": "cards/SYL020.jpg"
   },
@@ -111,10 +111,10 @@
     "crop": {
       "x": 1513,
       "y": 121,
-      "w": 226,
+      "w": 227,
       "h": 346
     },
-    "photoCover": 0.709,
+    "photoCover": 0.703,
     "hasPhoto": true,
     "file": "cards/DAC513.jpg"
   },
@@ -126,9 +126,9 @@
     "row": 0,
     "col": 7,
     "crop": {
-      "x": 1750,
+      "x": 1748,
       "y": 121,
-      "w": 227,
+      "w": 229,
       "h": 346
     },
     "photoCover": 0.767,
@@ -213,7 +213,7 @@
     "crop": {
       "x": 1039,
       "y": 516,
-      "w": 224,
+      "w": 226,
       "h": 346
     },
     "photoCover": 1,
@@ -230,7 +230,7 @@
     "crop": {
       "x": 1277,
       "y": 516,
-      "w": 224,
+      "w": 227,
       "h": 346
     },
     "photoCover": 0.998,
@@ -247,7 +247,7 @@
     "crop": {
       "x": 1513,
       "y": 516,
-      "w": 226,
+      "w": 227,
       "h": 346
     },
     "photoCover": 1,
@@ -262,9 +262,9 @@
     "row": 1,
     "col": 7,
     "crop": {
-      "x": 1750,
+      "x": 1748,
       "y": 516,
-      "w": 227,
+      "w": 229,
       "h": 346
     },
     "photoCover": 0.77,
@@ -349,7 +349,7 @@
     "crop": {
       "x": 1039,
       "y": 911,
-      "w": 224,
+      "w": 226,
       "h": 346
     },
     "photoCover": 0.783,
@@ -366,10 +366,10 @@
     "crop": {
       "x": 1277,
       "y": 911,
-      "w": 224,
+      "w": 227,
       "h": 346
     },
-    "photoCover": 0.745,
+    "photoCover": 0.738,
     "hasPhoto": true,
     "file": "cards/SYL006.jpg"
   },
@@ -383,10 +383,10 @@
     "crop": {
       "x": 1513,
       "y": 911,
-      "w": 226,
+      "w": 227,
       "h": 346
     },
-    "photoCover": 0.722,
+    "photoCover": 0.715,
     "hasPhoto": true,
     "file": "cards/SYL045.jpg"
   },
@@ -398,12 +398,12 @@
     "row": 2,
     "col": 7,
     "crop": {
-      "x": 1750,
+      "x": 1748,
       "y": 911,
-      "w": 227,
+      "w": 229,
       "h": 346
     },
-    "photoCover": 0.766,
+    "photoCover": 0.765,
     "hasPhoto": true,
     "file": "cards/DAC543.jpg"
   },
@@ -485,7 +485,7 @@
     "crop": {
       "x": 1039,
       "y": 1306,
-      "w": 224,
+      "w": 226,
       "h": 346
     },
     "photoCover": 0.729,
@@ -502,10 +502,10 @@
     "crop": {
       "x": 1277,
       "y": 1306,
-      "w": 224,
+      "w": 227,
       "h": 346
     },
-    "photoCover": 0.727,
+    "photoCover": 0.72,
     "hasPhoto": true,
     "file": "cards/SYL010.jpg"
   },
@@ -519,10 +519,10 @@
     "crop": {
       "x": 1513,
       "y": 1306,
-      "w": 226,
+      "w": 227,
       "h": 346
     },
-    "photoCover": 0.774,
+    "photoCover": 0.764,
     "hasPhoto": true,
     "file": "cards/SYL027.jpg"
   },
@@ -534,9 +534,9 @@
     "row": 3,
     "col": 7,
     "crop": {
-      "x": 1750,
+      "x": 1748,
       "y": 1306,
-      "w": 227,
+      "w": 229,
       "h": 346
     },
     "photoCover": 0.802,
@@ -621,7 +621,7 @@
     "crop": {
       "x": 1039,
       "y": 1701,
-      "w": 224,
+      "w": 226,
       "h": 346
     },
     "photoCover": 0.747,
@@ -638,10 +638,10 @@
     "crop": {
       "x": 1277,
       "y": 1701,
-      "w": 224,
+      "w": 227,
       "h": 346
     },
-    "photoCover": 0.713,
+    "photoCover": 0.707,
     "hasPhoto": true,
     "file": "cards/SYL058.jpg"
   },
@@ -655,10 +655,10 @@
     "crop": {
       "x": 1513,
       "y": 1701,
-      "w": 226,
+      "w": 227,
       "h": 346
     },
-    "photoCover": 0.621,
+    "photoCover": 0.613,
     "hasPhoto": true,
     "file": "cards/DAC544.jpg"
   },
@@ -670,12 +670,12 @@
     "row": 4,
     "col": 7,
     "crop": {
-      "x": 1750,
+      "x": 1748,
       "y": 1701,
-      "w": 227,
+      "w": 229,
       "h": 346
     },
-    "photoCover": 0.761,
+    "photoCover": 0.76,
     "hasPhoto": true,
     "file": "cards/SYL021.jpg"
   },
@@ -757,10 +757,10 @@
     "crop": {
       "x": 1039,
       "y": 2096,
-      "w": 224,
+      "w": 226,
       "h": 345
     },
-    "photoCover": 0.716,
+    "photoCover": 0.715,
     "hasPhoto": true,
     "file": "cards/DAC552.jpg"
   },
@@ -774,15 +774,15 @@
     "crop": {
       "x": 1277,
       "y": 2096,
-      "w": 224,
+      "w": 227,
       "h": 345
     },
-    "photoCover": 0.79,
+    "photoCover": 0.785,
     "hasPhoto": true,
     "file": "cards/DAC545.jpg"
   },
   {
-    "empId": "DAC648",
+    "empId": "DAC548",
     "name": "NADIA ISLAM",
     "designation": "Senior Executive Business Development Flight24.co",
     "blood": "B +ve",
@@ -791,12 +791,12 @@
     "crop": {
       "x": 1513,
       "y": 2096,
-      "w": 226,
+      "w": 227,
       "h": 345
     },
-    "photoCover": 0.851,
+    "photoCover": 0.845,
     "hasPhoto": true,
-    "file": "cards/DAC648.jpg"
+    "file": "cards/DAC548.jpg"
   },
   {
     "empId": "DAC551",
@@ -806,9 +806,9 @@
     "row": 5,
     "col": 7,
     "crop": {
-      "x": 1750,
+      "x": 1748,
       "y": 2096,
-      "w": 227,
+      "w": 229,
       "h": 345
     },
     "photoCover": 0.757,
@@ -893,7 +893,7 @@
     "crop": {
       "x": 1039,
       "y": 2469,
-      "w": 224,
+      "w": 226,
       "h": 351
     },
     "photoCover": 0.69,
@@ -910,10 +910,10 @@
     "crop": {
       "x": 1277,
       "y": 2469,
-      "w": 224,
+      "w": 227,
       "h": 351
     },
-    "photoCover": 0.717,
+    "photoCover": 0.71,
     "hasPhoto": true,
     "file": "cards/SYL002.jpg"
   },
@@ -927,10 +927,10 @@
     "crop": {
       "x": 1513,
       "y": 2469,
-      "w": 226,
+      "w": 227,
       "h": 351
     },
-    "photoCover": 0.704,
+    "photoCover": 0.698,
     "hasPhoto": true,
     "file": "cards/SYL015.jpg"
   },
@@ -942,9 +942,9 @@
     "row": 6,
     "col": 7,
     "crop": {
-      "x": 1750,
+      "x": 1748,
       "y": 2469,
-      "w": 227,
+      "w": 229,
       "h": 351
     },
     "photoCover": 0.663,
@@ -1029,10 +1029,10 @@
     "crop": {
       "x": 1039,
       "y": 2842,
-      "w": 224,
+      "w": 226,
       "h": 349
     },
-    "photoCover": 0.667,
+    "photoCover": 0.666,
     "hasPhoto": true,
     "file": "cards/DAC501.jpg"
   },
@@ -1040,16 +1040,16 @@
     "empId": "DAC525",
     "name": "ABDUR RAHMAN",
     "designation": "Office Assistant HR & Administration",
-    "blood": "A +ve",
+    "blood": "O +ve",
     "row": 7,
     "col": 5,
     "crop": {
       "x": 1277,
       "y": 2842,
-      "w": 224,
+      "w": 227,
       "h": 349
     },
-    "photoCover": 0.707,
+    "photoCover": 0.7,
     "hasPhoto": true,
     "file": "cards/DAC525.jpg"
   },
@@ -1063,10 +1063,10 @@
     "crop": {
       "x": 1513,
       "y": 2842,
-      "w": 226,
+      "w": 227,
       "h": 349
     },
-    "photoCover": 0.678,
+    "photoCover": 0.67,
     "hasPhoto": true,
     "file": "cards/DAC521.jpg"
   },
@@ -1078,12 +1078,12 @@
     "row": 7,
     "col": 7,
     "crop": {
-      "x": 1750,
+      "x": 1748,
       "y": 2842,
-      "w": 227,
+      "w": 229,
       "h": 349
     },
-    "photoCover": 0.64,
+    "photoCover": 0.639,
     "hasPhoto": true,
     "file": "cards/SYL038.jpg"
   },
@@ -1137,5 +1137,243 @@
     "photoCover": 0.748,
     "hasPhoto": true,
     "file": "cards/SYL043.jpg"
+  },
+  {
+    "empId": "DAC541",
+    "name": "MIRAZ UDDIN MULLICK",
+    "designation": "Sr. Manager Brand & Digital Marketing",
+    "blood": "O +ve",
+    "row": 8,
+    "col": 3,
+    "crop": {
+      "x": 800,
+      "y": 3211,
+      "w": 225,
+      "h": 349
+    },
+    "photoCover": 0.954,
+    "hasPhoto": true,
+    "file": "cards/DAC541.jpg"
+  },
+  {
+    "empId": "DAC547",
+    "name": "MIR SHARIFUL HAQUE",
+    "designation": "Asst. Manager Reservation & Ticketing",
+    "blood": "B +ve",
+    "row": 8,
+    "col": 4,
+    "crop": {
+      "x": 1039,
+      "y": 3211,
+      "w": 226,
+      "h": 349
+    },
+    "photoCover": 1,
+    "hasPhoto": true,
+    "file": "cards/DAC547.jpg"
+  },
+  {
+    "empId": "SYL032",
+    "name": "MD JUBEL MIA",
+    "designation": "Office Assistant HR & Administration",
+    "blood": "O +ve",
+    "row": 8,
+    "col": 5,
+    "crop": {
+      "x": 1277,
+      "y": 3211,
+      "w": 227,
+      "h": 349
+    },
+    "photoCover": 0.756,
+    "hasPhoto": true,
+    "file": "cards/SYL032.jpg"
+  },
+  {
+    "empId": "SYL033",
+    "name": "MD SHAWON MIAH",
+    "designation": "Office Assistant HR & Administration",
+    "blood": "O +ve",
+    "row": 8,
+    "col": 6,
+    "crop": {
+      "x": 1513,
+      "y": 3211,
+      "w": 227,
+      "h": 349
+    },
+    "photoCover": 0.722,
+    "hasPhoto": true,
+    "file": "cards/SYL033.jpg"
+  },
+  {
+    "empId": "SYL046",
+    "name": "ARIF AHMED MIGI",
+    "designation": "Office Assistant HR & Administration",
+    "blood": "A +ve",
+    "row": 8,
+    "col": 7,
+    "crop": {
+      "x": 1748,
+      "y": 3211,
+      "w": 229,
+      "h": 349
+    },
+    "photoCover": 0.663,
+    "hasPhoto": true,
+    "file": "cards/SYL046.jpg"
+  },
+  {
+    "empId": "SYL041",
+    "name": "Saleh Ahmed",
+    "designation": "Office Assistant HR & Administration",
+    "blood": "A +ve",
+    "row": 9,
+    "col": 0,
+    "crop": {
+      "x": 86,
+      "y": 3585,
+      "w": 224,
+      "h": 349
+    },
+    "photoCover": 0.674,
+    "hasPhoto": true,
+    "file": "cards/SYL041.jpg"
+  },
+  {
+    "empId": "SYL035",
+    "name": "WASIM AHMED",
+    "designation": "Office Assistant HR & Administration",
+    "blood": "O +ve",
+    "row": 9,
+    "col": 1,
+    "crop": {
+      "x": 322,
+      "y": 3585,
+      "w": 228,
+      "h": 349
+    },
+    "photoCover": 0.497,
+    "hasPhoto": true,
+    "file": "cards/SYL035.jpg"
+  },
+  {
+    "empId": "SYL007",
+    "name": "RAJDIP SENGUPTA",
+    "designation": "Executive Reservation",
+    "blood": "O +ve",
+    "row": 9,
+    "col": 2,
+    "crop": {
+      "x": 559,
+      "y": 3585,
+      "w": 229,
+      "h": 349
+    },
+    "photoCover": 0.691,
+    "hasPhoto": true,
+    "file": "cards/SYL007.jpg"
+  },
+  {
+    "empId": "SYL049",
+    "name": "MUKIT MIA",
+    "designation": "Executive Reservation & Ticketing",
+    "blood": "A +ve",
+    "row": 9,
+    "col": 3,
+    "crop": {
+      "x": 800,
+      "y": 3585,
+      "w": 225,
+      "h": 349
+    },
+    "photoCover": 0.765,
+    "hasPhoto": true,
+    "file": "cards/SYL049.jpg"
+  },
+  {
+    "empId": "SYL012",
+    "name": "SAJIB CHOWDHURY",
+    "designation": "Asst. Manager Accounts & Finance",
+    "blood": "O +ve",
+    "row": 9,
+    "col": 4,
+    "crop": {
+      "x": 1039,
+      "y": 3585,
+      "w": 226,
+      "h": 349
+    },
+    "photoCover": 0.775,
+    "hasPhoto": true,
+    "file": "cards/SYL012.jpg"
+  },
+  {
+    "empId": "SYL056",
+    "name": "TAHSIN MOMITA HUSSAIN",
+    "designation": "Director",
+    "blood": "B +ve",
+    "row": 9,
+    "col": 5,
+    "crop": {
+      "x": 1277,
+      "y": 3585,
+      "w": 227,
+      "h": 349
+    },
+    "photoCover": 0.802,
+    "hasPhoto": true,
+    "file": "cards/SYL056.jpg"
+  },
+  {
+    "empId": "SYL055",
+    "name": "NUSHRATH MOMITA HUSSAIN",
+    "designation": "Director",
+    "blood": "B +ve",
+    "row": 9,
+    "col": 6,
+    "crop": {
+      "x": 1513,
+      "y": 3585,
+      "w": 227,
+      "h": 349
+    },
+    "photoCover": 0.867,
+    "hasPhoto": true,
+    "file": "cards/SYL055.jpg"
+  },
+  {
+    "empId": "SYL000",
+    "name": "MUTAHER HUSSAIN",
+    "designation": "Managing Director",
+    "blood": "B +ve",
+    "row": 9,
+    "col": 7,
+    "crop": {
+      "x": 1748,
+      "y": 3585,
+      "w": 229,
+      "h": 349
+    },
+    "photoCover": 0.696,
+    "hasPhoto": true,
+    "file": "cards/SYL000.jpg"
+  },
+  {
+    "empId": "SYL066",
+    "name": "GOUTAM CHANDRA DEY JOY",
+    "designation": "Executiv Accounts & Finance",
+    "blood": "O +ve",
+    "row": 10,
+    "col": 7,
+    "crop": {
+      "x": 1748,
+      "y": 3961,
+      "w": 229,
+      "h": 346
+    },
+    "photoCover": 0.766,
+    "hasPhoto": true,
+    "file": "cards/SYL066.jpg"
   }
 ]
